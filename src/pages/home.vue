@@ -12,7 +12,11 @@
         </v-col>
       </v-row>
     </v-container>
-    <v-btn rounded="lg" size="x-large" class="recordBtn">운동 기록하기!</v-btn>
+    <router-link to="/exercise_selection">
+      <v-btn rounded="lg" size="x-large" class="recordBtn"
+        >운동 기록하기!</v-btn
+      ></router-link
+    >
   </div>
 </template>
 
@@ -28,12 +32,16 @@ export default {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  background-color: F3F4F6;
+  height: 100%;
+  background-color: #f3f4f6;
 }
 .recordBtn {
   width: 100%;
   background: #0099f7;
   color: white;
   font-weight: 700;
+}
+router-link {
+  text-decoration: none; /* router-link 기본 스타일 제거 */
 }
 </style>

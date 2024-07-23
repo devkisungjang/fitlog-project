@@ -11,4 +11,4 @@ import Header from "@/components/header.vue";
 import bottomNav from "@/components/bottom_nav.vue";
 </script>
 
-<style></style>
+<style scoped></style>

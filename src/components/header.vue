@@ -1,10 +1,14 @@
 <template>
   <header>
     <div class="inner">
-      <div class="logo">FITLOG</div>
+      <div class="logo"><router-link to="/">FITLOG</router-link></div>
       <div class="menu">
-        <h2 @click="goToHome">운동 계획</h2>
-        <h2 @click="goToMap">주변 헬스장</h2>
+        <router-link to="/">
+          <h2>운동 계획</h2>
+        </router-link>
+        <router-link to="/map">
+          <h2>주변 헬스장</h2>
+        </router-link>
       </div>
     </div>
   </header>
@@ -12,28 +16,22 @@
 
 <script>
 export default {
-  data: () => ({
-    items: [
-      { title: "Click Me" },
-      { title: "Click Me" },
-      { title: "Click Me" },
-      { title: "Click Me 2" },
-    ],
-  }),
-  methods: {
-    goToHome() {
-      this.$router.push("/");
-    },
-    goToMap() {
-      this.$router.push("@/pages/map.vue");
-    },
-  },
+  name: "Header",
 };
 </script>
 
 <style scoped>
 h2 {
   cursor: pointer;
+  color: black;
+}
+/* router-link 태그를 사용했을때 생기는 밑줄 없애기.
+router-link와 h2태그에 text-decoration: none;을 적용시키게 되면 적용 x */
+a {
+  text-decoration: none !important;
+}
+.logo a {
+  color: #0099f7;
 }
 .logo {
   display: flex;
@@ -43,6 +41,9 @@ h2 {
   font-size: 36px;
   color: #0099f7;
   font-weight: 700;
+}
+.logo a {
+  color: #0099f7;
 }
 .menu {
   display: flex;
