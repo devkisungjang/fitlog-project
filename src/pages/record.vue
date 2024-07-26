@@ -1,4 +1,5 @@
 <template>
+  <Header />
   <div class="container">
     <Stopwatch />
     <v-expansion-panels v-model="panel" :disabled="disabled" multiple>
@@ -91,6 +92,7 @@
 </template>
 
 <script>
+import Header from "@/components/header.vue";
 import Stopwatch from "@/components/stopwatch.vue";
 
 export default {

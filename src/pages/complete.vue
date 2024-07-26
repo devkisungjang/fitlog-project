@@ -16,7 +16,33 @@
   </main>
 </template>
 
-<script></script>
+<script>
+import confetti from "canvas-confetti";
+
+export default {
+  name: "Complete",
+  mounted() {
+    this.startConfetti();
+  },
+  beforeUnmount() {
+    if (this.confettiInterval) {
+      clearInterval(this.confettiInterval);
+    }
+  },
+  methods: {
+    startConfetti() {
+      this.confettiInterval = setInterval(this.launchConfetti, 1000);
+    },
+    launchConfetti() {
+      confetti({
+        particleCount: 50, // 파티클 수를 늘림
+        spread: 70,
+        origin: { y: 0.6 },
+      });
+    },
+  },
+};
+</script>
 
 <style scoped>
 main {

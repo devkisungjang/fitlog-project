@@ -1,4 +1,5 @@
 <template>
+  <Header />
   <div>
     <input
       type="text"
@@ -18,6 +19,8 @@
 </template>
 
 <script>
+import Header from "@/components/header.vue";
+
 export default {
   data() {
     return {

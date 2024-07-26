@@ -1,4 +1,5 @@
 <template>
+  <Header />
   <div class="container">
     <v-container>
       <v-row justify="center">
@@ -21,6 +22,8 @@
 </template>
 
 <script>
+import Header from "@/components/header.vue";
+
 export default {
   name: "Home",
 };

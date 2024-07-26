@@ -1,4 +1,5 @@
 <template>
+  <Header />
   <v-card>
     <v-tabs v-model="tab" bg-color="#0099F7" slider-color="#ffff" show-arrows>
       <v-tab
@@ -39,6 +40,7 @@
 </template>
 
 <script>
+import Header from "@/components/header.vue";
 import exerciseGroups from "@/exercise_groups.json";
 
 export default {
