@@ -1,237 +1,239 @@
 <template>
-  <v-app>
-    <v-container>
-      <v-row>
-        <v-col>
-          <v-toolbar color="primary" dark>
-            <v-toolbar-title>운동 기록</v-toolbar-title>
-          </v-toolbar>
-        </v-col>
-      </v-row>
-
-      <v-row v-for="exercise in selectedExercises" :key="exercise.id">
-        <v-col>
-          <v-expansion-panels>
-            <v-expansion-panel>
-              <v-expansion-panel-header>
-                <div class="d-flex justify-space-between align-center">
-                  {{ exercise.name }}
-                  <v-btn icon @click="removeExercise(exercise.id)">
-                    <v-icon>mdi-delete</v-icon>
-                  </v-btn>
-                </div>
-              </v-expansion-panel-header>
-              <v-expansion-panel-content>
-                <template v-if="exercise.type === 'cardio'">
-                  <v-row v-for="(set, index) in exercise.sets" :key="index">
-                    <v-col>
-                      <v-text-field
-                        label="세트"
-                        v-model="set.setNumber"
-                        disabled
-                      ></v-text-field>
-                    </v-col>
-                    <v-col>
-                      <v-text-field
-                        label="시간 (분)"
-                        v-model="set.time"
-                      ></v-text-field>
-                    </v-col>
-                    <v-col>
-                      <v-checkbox v-model="set.completed"></v-checkbox>
-                    </v-col>
-                  </v-row>
-                </template>
-                <template v-else>
-                  <v-row v-for="(set, index) in exercise.sets" :key="index">
-                    <v-col>
-                      <v-text-field
-                        label="세트"
-                        v-model="set.setNumber"
-                        disabled
-                      ></v-text-field>
-                    </v-col>
-                    <v-col>
-                      <v-text-field label="kg" v-model="set.kg"></v-text-field>
-                    </v-col>
-                    <v-col>
-                      <v-text-field
-                        label="횟수"
-                        v-model="set.reps"
-                      ></v-text-field>
-                    </v-col>
-                    <v-col>
-                      <v-checkbox v-model="set.completed"></v-checkbox>
-                    </v-col>
-                  </v-row>
-                </template>
-                <v-row>
-                  <v-col>
-                    <v-btn @click="removeSet(exercise.id, index)"
-                      >- 세트삭제</v-btn
-                    >
-                  </v-col>
-                  <v-col>
-                    <v-btn @click="addSet(exercise.id)">+ 세트추가</v-btn>
-                  </v-col>
-                </v-row>
-              </v-expansion-panel-content>
-            </v-expansion-panel>
-          </v-expansion-panels>
-        </v-col>
-      </v-row>
-
-      <div class="d-flex">
-        <v-checkbox v-model="disabled" label="잠금"></v-checkbox>
+  <div class="container">
+    <Stopwatch />
+    <v-expansion-panels v-model="panel" :disabled="disabled" multiple>
+      <v-expansion-panel class="content">
+        <v-expansion-panel-title class="title">
+          벤치프레스<span>총 볼륨수 : {{ totalVolume }} kg</span>
+        </v-expansion-panel-title>
+        <v-expansion-panel-text>
+          <div v-for="(set, index) in sets" :key="index" class="set-group">
+            <div class="set">
+              <h3>세트</h3>
+              <h3 class="set-count-num">{{ index + 1 }}</h3>
+            </div>
+            <div class="kg">
+              <h3>kg</h3>
+              <input
+                type="number"
+                v-model.number="set.kg"
+                @input="updateTotalVolume"
+                class="kg-input"
+              />
+            </div>
+            <div class="count">
+              <h3>회</h3>
+              <input
+                type="number"
+                v-model.number="set.count"
+                @input="updateTotalVolume"
+                class="count-input"
+              />
+            </div>
+            <div class="complete-check">
+              <h3>완료</h3>
+              <label for="checkbox" class="custom-checkbox"></label>
+              <input
+                type="checkbox"
+                v-model="set.completed"
+                @change="updateTotalVolume"
+                class="checkbox"
+              />
+            </div>
+          </div>
+          <div class="btn-group">
+            <v-btn class="delete-btn" @click="removeSet">- 세트삭제</v-btn>
+            <v-btn class="add-btn" @click="addSet">+ 세트추가</v-btn>
+          </div>
+        </v-expansion-panel-text>
+      </v-expansion-panel>
+      <!-- ------------------------------------------------- -->
+      <div class="diary-container">
+        <h2>오늘의 운동 일지</h2>
+        <v-textarea
+          bg-color="#0099f7"
+          color="white"
+          label="예시) 대흉근이 웅장해지는 하루였다."
+          variant="solo-filled"
+          class="textarea"
+        ></v-textarea>
       </div>
-      <v-expansion-panels v-model="panel" :disabled="disabled" multiple>
-        <v-expansion-panel>
-          <v-expansion-panel-title>운동 일지</v-expansion-panel-title>
-          <v-expansion-panel-text>
-            <v-textarea
-              bg-color="light-blue"
-              clearable
-              variant="solo-filled"
-            ></v-textarea>
-          </v-expansion-panel-text>
-        </v-expansion-panel>
-
-        <v-expansion-panel>
-          <v-expansion-panel-title>몸무게</v-expansion-panel-title>
-          <v-expansion-panel-text>
-            <v-row>
-              <v-col cols="8">
-                <v-text-field model-value="28.00" suffix="kg"></v-text-field>
-              </v-col>
-            </v-row>
-          </v-expansion-panel-text>
-        </v-expansion-panel>
-
-        <v-expansion-panel>
-          <v-expansion-panel-title>Panel 1</v-expansion-panel-title>
-          <v-expansion-panel-text>
-            <v-row>
-              <v-col cols="12">
-                <v-file-input
-                  v-model="file"
-                  label="Choose an image"
-                  accept="image/*"
-                  @change="onFileSelected"
-                  prepend-icon="mdi-camera"
-                ></v-file-input>
-              </v-col>
-              <v-col cols="12">
-                <v-img
-                  v-if="imageUrl"
-                  :src="imageUrl"
-                  max-width="500"
-                  class="my-5"
-                ></v-img>
-              </v-col>
-            </v-row>
-          </v-expansion-panel-text>
-        </v-expansion-panel>
-      </v-expansion-panels>
-
-      <v-row class="text-center">
-        <v-col>
-          <v-btn color="primary" @click="completeWorkout">작성 완료하기</v-btn>
-        </v-col>
-      </v-row>
-    </v-container>
-  </v-app>
+      <div class="weight-container">
+        <h2>몸무게(kg)</h2>
+        <v-number-input
+          :reverse="false"
+          controlVariant="split"
+          label=""
+          :hideInput="false"
+          inset
+          variant="solo"
+          bg-color="#0099f7"
+          class="weight-input"
+        ></v-number-input>
+      </div>
+      <div class="photo-container">
+        <h2>운동 사진</h2>
+        <v-file-input
+          prepend-icon="mdi-camera"
+          variant="solo"
+          @change="onFileChange"
+        ></v-file-input>
+        <div class="photo">
+          <span v-if="!imageUrl">사진을 등록해주세요!</span>
+          <img v-if="imageUrl" :src="imageUrl" alt="Uploaded Photo" />
+        </div>
+      </div>
+    </v-expansion-panels>
+    <router-link to="/complete">
+      <v-btn rounded="lg" size="x-large" class="recordBtn">운동 완료!</v-btn>
+    </router-link>
+  </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import Stopwatch from "@/components/stopwatch.vue";
 
 export default {
-  name: "Record",
-  data() {
-    return {
-      file: null,
-      imageUrl: null,
-      panel: [0, 1],
-      disabled: false,
-    };
-  },
-  computed: {
-    ...mapGetters(["getSelectedExercises"]),
-    selectedExercises() {
-      return this.getSelectedExercises.map((exercise) => ({
-        ...exercise,
-        sets: exercise.sets || [
-          exercise.type === "cardio"
-            ? { setNumber: 1, time: 30, completed: false }
-            : { setNumber: 1, kg: 10, reps: 10, completed: false },
-        ],
-      }));
-    },
-  },
+  data: () => ({
+    panel: [0, 1],
+    disabled: false,
+    sets: [{ kg: "", count: "", completed: false }],
+    totalVolume: 0,
+    imageUrl: null, // 이미지 URL 저장을 위한 변수
+  }),
   methods: {
-    ...mapActions(["updateSelectedExercises"]),
-    onFileSelected() {
-      const reader = new FileReader();
-
-      reader.onload = (e) => {
-        this.imageUrl = e.target.result;
-      };
-
-      if (this.file) {
-        reader.readAsDataURL(this.file);
+    addSet() {
+      const lastSet = this.sets[this.sets.length - 1];
+      this.sets.push({
+        kg: lastSet.kg,
+        count: lastSet.count,
+        completed: false,
+      });
+      this.updateTotalVolume();
+    },
+    removeSet() {
+      if (this.sets.length > 1) {
+        this.sets.pop();
+        this.updateTotalVolume();
       }
     },
-    addSet(exerciseId) {
-      const exercise = this.selectedExercises.find((e) => e.id === exerciseId);
-      const newSet =
-        exercise.type === "cardio"
-          ? { setNumber: exercise.sets.length + 1, time: 30, completed: false }
-          : {
-              setNumber: exercise.sets.length + 1,
-              kg: 10,
-              reps: 10,
-              completed: false,
-            };
-      exercise.sets.push(newSet);
-      this.updateSelectedExercises([...this.selectedExercises]);
+    updateTotalVolume() {
+      this.totalVolume = this.sets.reduce((total, set) => {
+        return set.completed ? total + set.kg * set.count : total;
+      }, 0);
     },
-    removeSet(exerciseId, setIndex) {
-      const exercise = this.selectedExercises.find((e) => e.id === exerciseId);
-      if (exercise.sets.length > 1) {
-        exercise.sets.splice(setIndex, 1);
-        exercise.sets.forEach((set, index) => {
-          set.setNumber = index + 1;
-        });
-        this.updateSelectedExercises([...this.selectedExercises]);
+    onFileChange(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          this.imageUrl = e.target.result;
+        };
+        reader.readAsDataURL(file);
       }
-    },
-    removeExercise(exerciseId) {
-      const index = this.selectedExercises.findIndex(
-        (e) => e.id === exerciseId
-      );
-      if (index !== -1) {
-        this.selectedExercises.splice(index, 1);
-        this.updateSelectedExercises([...this.selectedExercises]);
-      }
-    },
-    completeWorkout() {
-      alert("운동 기록이 완료되었습니다.");
-      // 작성 완료 로직을 여기에 추가하세요
     },
   },
 };
 </script>
 
 <style scoped>
-.v-list-item {
-  border: 1px solid #ddd;
-  margin-bottom: 8px;
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 10px 10px;
+  background-color: #f3f4f6;
 }
-.v-list-item-avatar img {
-  width: 50px;
-  height: 50px;
+.content {
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  width: 100%;
+  background: #0099f7;
 }
-.v-expansion-panel-header {
-  background-color: #90caf9;
+.title {
+  font-size: 20px;
+  color: #ffff;
+  font-weight: 700;
+  border-bottom: 1px solid #ffff;
+}
+.set-group {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 20px;
+  color: #ffff;
+}
+.set,
+.kg,
+.count,
+.complete-check {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.complete-check {
+  display: flex;
+  gap: 5px;
+}
+.kg-input,
+.count-input {
+  width: 60px;
+  height: 30px;
+  font-size: 15px;
+  border: 0;
+  border-radius: 15px;
+  outline: none;
+  padding-left: 10px;
+  background-color: rgb(233, 233, 233);
+}
+.recordBtn {
+  width: 100%;
+  background: #0099f7;
+  color: white;
+  font-weight: 700;
+}
+.btn-group {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+.btn-group .delete-btn,
+.btn-group .add-btn {
+  width: 125px;
+  height: 45px;
+  border-radius: 20px;
+  background: #59b8f9;
+  color: white;
+  font-size: 16px;
+}
+span {
+  padding-left: 30px;
+}
+.diary-container,
+.photo-container,
+.weight-container {
+  width: 100%;
+  margin-top: 20px;
+}
+.photo-container .photo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 400px;
+  border: 1px solid black;
+  border-radius: 20px;
+}
+.photo-container .photo img {
+  max-width: 100%;
+  max-height: 100%;
+}
+/* 쳌박 커스텀 */
+.checkbox {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  padding-bottom: 10px;
 }
 </style>

@@ -4,7 +4,6 @@ import { registerPlugins } from "@/plugins";
 // Components
 import App from "./App.vue";
 import router from "./router";
-import store from "./store";
 import { useKakao } from "vue3-kakao-maps";
 
 // Composables
@@ -20,5 +19,4 @@ useKakao("5bd7be4085eeed06609b9a85cfba8add", [
 registerPlugins(app);
 
 app.use(router);
-app.use(store);
 app.mount("#app");

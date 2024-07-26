@@ -4,13 +4,13 @@
       <v-btn>
         <router-link to="/">
           <v-icon>mdi-history</v-icon>
-          운동 기록 보기</router-link
+          <span>운동 기록 보기</span></router-link
         >
       </v-btn>
       <v-btn>
         <router-link to="/map">
           <v-icon>mdi-map-marker</v-icon>
-          주변 헬스장</router-link
+          <span>주변 헬스장</span></router-link
         >
       </v-btn>
     </v-bottom-navigation>
@@ -29,6 +29,11 @@ a {
 
 <style scoped>
 a {
+  font-size: larger;
   color: #0099f7;
+}
+span {
+  color: black;
+  padding-left: 10px;
 }
 </style>

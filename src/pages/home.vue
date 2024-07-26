@@ -28,19 +28,12 @@ export default {
 
 <style scoped>
 .container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  height: 100%;
+  padding: 0 10px;
 }
 .recordBtn {
   width: 100%;
   background: #0099f7;
   color: white;
   font-weight: 700;
-}
-router-link {
-  text-decoration: none; /* router-link 기본 스타일 제거 */
 }
 </style>

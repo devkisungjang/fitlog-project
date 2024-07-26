@@ -99,7 +99,10 @@ export default {
 
 <style scoped>
 div {
-  background-color: #f3f4f6;
+  padding: 10px;
+}
+ul li {
+  list-style: none;
 }
 #map {
   width: 100%;

@@ -1,61 +1,214 @@
 {
   "가슴": [
-    { "id": 1, "name": "벤치 프레스", "image": "" },
-    { "id": 2, "name": "인클라인 벤치프레스", "image": "" },
-    { "id": 3, "name": "디클라인 벤치프레스", "image": "" },
-    { "id": 4, "name": "푸쉬 업", "image": "" },
-    { "id": 5, "name": "케이블 크로스오버", "image": "" },
-    { "id": 6, "name": "덤벨 플라이", "image": "" },
-    { "id": 7, "name": "펙 덱 플라이", "image": "" }
+    {
+      "id": 1,
+      "name": "벤치 프레스",
+      "image": "https://static.strengthlevel.com/images/exercises/bench-press/bench-press-800.avif"
+    },
+    {
+      "id": 2,
+      "name": "인클라인 벤치프레스",
+      "image": "https://static.strengthlevel.com/images/exercises/incline-bench-press/incline-bench-press-800.avif"
+    },
+    {
+      "id": 3,
+      "name": "디클라인 벤치프레스",
+      "image": "https://static.strengthlevel.com/images/exercises/decline-bench-press/decline-bench-press-800.avif"
+    },
+    {
+      "id": 4,
+      "name": "푸쉬 업",
+      "image": "https://static.strengthlevel.com/images/exercises/push-ups/push-ups-800.avif"
+    },
+    {
+      "id": 5,
+      "name": "케이블 크로스오버",
+      "image": "https://static.strengthlevel.com/images/exercises/cable-fly/cable-fly-800.avif"
+    },
+    {
+      "id": 6,
+      "name": "덤벨 플라이",
+      "image": "https://static.strengthlevel.com/images/exercises/dumbbell-fly/dumbbell-fly-800.avif"
+    },
+    {
+      "id": 7,
+      "name": "펙 덱 플라이",
+      "image": "https://static.strengthlevel.com/images/exercises/machine-chest-fly/machine-chest-fly-800.avif"
+    }
   ],
   "어깨": [
-    { "id": 1, "name": "숄더 프레스", "image": "" },
-    { "id": 2, "name": "사이드 레터럴 레이즈", "image": "" },
-    { "id": 3, "name": "프론트 레이즈", "image": "" },
-    { "id": 4, "name": "리어 델트 플라이", "image": "" },
-    { "id": 5, "name": "업라이트 로우", "image": "" },
-    { "id": 6, "name": "덤벨 슈러그", "image": "" },
-    { "id": 7, "name": "케이블 프론트 레이즈", "image": "" },
-    { "id": 8, "name": "아놀드 프레스", "image": "" }
+    {
+      "id": 1,
+      "name": "숄더 프레스",
+      "image": "https://static.strengthlevel.com/images/exercises/shoulder-press/shoulder-press-800.avif"
+    },
+    {
+      "id": 2,
+      "name": "사이드 레터럴 레이즈",
+      "image": "https://static.strengthlevel.com/images/exercises/dumbbell-lateral-raise/dumbbell-lateral-raise-800.avif"
+    },
+    {
+      "id": 3,
+      "name": "프론트 레이즈",
+      "image": "https://static.strengthlevel.com/images/exercises/dumbbell-front-raise/dumbbell-front-raise-800.avif"
+    },
+    {
+      "id": 4,
+      "name": "리어 델트 플라이",
+      "image": "https://static.strengthlevel.com/images/exercises/machine-reverse-fly/machine-reverse-fly-800.avif"
+    },
+    {
+      "id": 5,
+      "name": "업라이트 로우",
+      "image": "https://static.strengthlevel.com/images/exercises/upright-row/upright-row-800.avif"
+    },
+    {
+      "id": 6,
+      "name": "아놀드 프레스",
+      "image": "https://static.strengthlevel.com/images/exercises/arnold-press/arnold-press-800.avif"
+    }
   ],
   "등": [
-    { "id": 1, "name": "풀업", "image": "" },
-    { "id": 2, "name": "벤트 오버 로우", "image": "" },
-    { "id": 3, "name": "시티드 로우", "image": "" },
-    { "id": 4, "name": "랫 풀다운", "image": "" },
-    { "id": 5, "name": "데드리프트", "image": "" },
-    { "id": 6, "name": "티바 로우", "image": "" },
-    { "id": 7, "name": "원암 덤벨 로우", "image": "" },
-    { "id": 8, "name": "페이스 풀", "image": "" }
+    {
+      "id": 1,
+      "name": "풀업",
+      "image": "https://static.strengthlevel.com/images/exercises/pull-ups/pull-ups-800.avif"
+    },
+    {
+      "id": 2,
+      "name": "벤트 오버 로우",
+      "image": "https://static.strengthlevel.com/images/exercises/bent-over-row/bent-over-row-800.avif"
+    },
+    {
+      "id": 3,
+      "name": "시티드 로우",
+      "image": "https://static.strengthlevel.com/images/exercises/seated-cable-row/seated-cable-row-800.avif"
+    },
+    {
+      "id": 4,
+      "name": "랫 풀다운",
+      "image": "https://static.strengthlevel.com/images/exercises/lat-pulldown/lat-pulldown-800.avif"
+    },
+    {
+      "id": 5,
+      "name": "데드리프트",
+      "image": "https://static.strengthlevel.com/images/exercises/romanian-deadlift/romanian-deadlift-800.avif"
+    },
+    {
+      "id": 6,
+      "name": "티바 로우",
+      "image": "https://static.strengthlevel.com/images/exercises/t-bar-row/t-bar-row-800.avif"
+    },
+    {
+      "id": 7,
+      "name": "원암 덤벨 로우",
+      "image": "https://static.strengthlevel.com/images/exercises/dumbbell-row/dumbbell-row-800.avif"
+    },
+    {
+      "id": 8,
+      "name": "페이스 풀",
+      "image": "https://static.strengthlevel.com/images/exercises/face-pull/face-pull-800.avif"
+    }
   ],
   "하체": [
-    { "id": 1, "name": "스쿼트", "image": "" },
-    { "id": 2, "name": "레그 프레스", "image": "" },
-    { "id": 3, "name": "런지", "image": "" },
-    { "id": 4, "name": "레그 컬", "image": "" },
-    { "id": 5, "name": "레그 익스텐션", "image": "" },
-    { "id": 6, "name": "카프 레이즈", "image": "" },
-    { "id": 7, "name": "힙 쓰러스트", "image": "" },
-    { "id": 8, "name": "바벨 스텝 업", "image": "" }
+    {
+      "id": 1,
+      "name": "스쿼트",
+      "image": "https://static.strengthlevel.com/images/exercises/squat/squat-800.avif"
+    },
+    {
+      "id": 2,
+      "name": "레그 프레스",
+      "image": "https://static.strengthlevel.com/images/exercises/sled-leg-press/sled-leg-press-800.avif"
+    },
+    {
+      "id": 3,
+      "name": "런지",
+      "image": "https://static.strengthlevel.com/images/exercises/lunge/lunge-800.avif"
+    },
+    {
+      "id": 4,
+      "name": "레그 컬",
+      "image": "https://static.strengthlevel.com/images/exercises/lying-leg-curl/lying-leg-curl-800.avif"
+    },
+    {
+      "id": 5,
+      "name": "레그 익스텐션",
+      "image": "https://static.strengthlevel.com/images/exercises/leg-extension/leg-extension-800.avif"
+    },
+    {
+      "id": 6,
+      "name": "카프 레이즈",
+      "image": "https://static.strengthlevel.com/images/exercises/machine-calf-raise/machine-calf-raise-800.avif"
+    },
+    {
+      "id": 7,
+      "name": "힙 쓰러스트",
+      "image": "https://static.strengthlevel.com/images/exercises/hip-thrust/hip-thrust-800.avif"
+    }
   ],
   "복근": [
-    { "id": 1, "name": "크런치", "image": "" },
-    { "id": 2, "name": "레그 레이즈", "image": "" },
-    { "id": 3, "name": "플랭크", "image": "" },
-    { "id": 4, "name": "바이시클 크런치", "image": "" },
-    { "id": 5, "name": "러시안 트위스트", "image": "" },
-    { "id": 6, "name": "행잉 레그 레이즈", "image": "" },
-    { "id": 7, "name": "싯업", "image": "" },
-    { "id": 8, "name": "마운틴 클라이머", "image": "" }
+    {
+      "id": 1,
+      "name": "크런치",
+      "image": "https://static.strengthlevel.com/images/exercises/crunches/crunches-800.avif"
+    },
+    {
+      "id": 2,
+      "name": "레그 레이즈",
+      "image": "https://static.strengthlevel.com/images/exercises/lying-leg-raise/lying-leg-raise-800.avif"
+    },
+    {
+      "id": 3,
+      "name": "바이시클 크런치",
+      "image": "https://static.strengthlevel.com/images/exercises/bicycle-crunch/bicycle-crunch-800.avif"
+    },
+    {
+      "id": 4,
+      "name": "러시안 트위스트",
+      "image": "https://static.strengthlevel.com/images/exercises/russian-twist/russian-twist-800.avif"
+    },
+    {
+      "id": 5,
+      "name": "행잉 레그 레이즈",
+      "image": "https://static.strengthlevel.com/images/exercises/hanging-leg-raise/hanging-leg-raise-800.avif"
+    },
+    {
+      "id": 6,
+      "name": "싯업",
+      "image": "https://static.strengthlevel.com/images/exercises/sit-ups/sit-ups-800.avif"
+    },
+    {
+      "id": 7,
+      "name": "마운틴 클라이머",
+      "image": "https://static.strengthlevel.com/images/exercises/mountain-climbers/mountain-climbers-800.avif"
+    }
   ],
   "유산소": [
-    { "id": 1, "name": "러닝", "image": "" },
-    { "id": 2, "name": "사이클링", "image": "" },
-    { "id": 3, "name": "로잉 머신", "image": "" },
-    { "id": 4, "name": "스텝퍼", "image": "" },
-    { "id": 5, "name": "점핑 잭", "image": "" },
-    { "id": 6, "name": "버피", "image": "" },
-    { "id": 7, "name": "하이 니즈", "image": "" },
-    { "id": 8, "name": "잭나이프", "image": "" }
+    {
+      "id": 1,
+      "name": "러닝",
+      "image": "https://pngimg.com/uploads/treadmill/treadmill_PNG37.png"
+    },
+    {
+      "id": 2,
+      "name": "사이클링",
+      "image": "https://www.expresso.com/Content/graphics/home_personal.jpg"
+    },
+    {
+      "id": 3,
+      "name": "로잉 머신",
+      "image": "https://jorotofitness.com/cdn/shop/products/joroto-mr23-water-rowing-machine-for-home-use-foldable-rower-machine-300-lbs-weight-capacity-with-bluetooth-function-ipad-holder-541965.jpg?v=1670009028"
+    },
+    {
+      "id": 4,
+      "name": "스텝밀",
+      "image": "https://images.activefitnessstore.com/product-large/SM3/SM3-2.jpg"
+    },
+    {
+      "id": 5,
+      "name": "점핑 잭",
+      "image": "https://cathe.com/wp-content/uploads/2020/02/shutterstock_502211857.jpg"
+    }
   ]
 }
