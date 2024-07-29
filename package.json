@@ -11,7 +11,7 @@
     "@mdi/font": "7.4.47",
     "canvas-confetti": "^1.9.3",
     "core-js": "^3.37.1",
-    "pinia": "^2.1.7",
+    "pinia": "^2.2.0",
     "roboto-fontface": "*",
     "vue": "^3.4.31",
     "vue3-kakao-maps": "^2.3.9",
