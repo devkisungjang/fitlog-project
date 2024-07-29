@@ -14,7 +14,7 @@
       <v-tabs-items v-model="tab">
         <v-tab-item :value="tab">
           <div
-            v-for="exercise in exerciseGroups[tab]"
+            v-for="(exercise, index) in exerciseGroups[tab]"
             :key="exercise.id"
             class="exercise-item"
           >
@@ -26,7 +26,8 @@
                 exercise.name
               }}</v-list-item-title>
             </v-list-item-content>
-            <v-checkbox class="checkbox"></v-checkbox>
+            <v-checkbox v-model="checkedItems[tab][index]" class="checkbox">
+            </v-checkbox>
           </div>
         </v-tab-item>
       </v-tabs-items>
@@ -47,9 +48,46 @@ export default {
   data: () => ({
     tab: Object.keys(exerciseGroups)[0], // 첫 번째 그룹을 초기 탭으로 설정
     exerciseGroups: exerciseGroups,
+    checkedItems: Object.keys(exerciseGroups).reduce((acc, group) => {
+      acc[group] = exerciseGroups[group].map(() => false);
+      return acc;
+    }, {}),
   }),
+  watch: {
+    tab(newTab, oldTab) {
+      // 기존 로직에서는 새로운 탭으로 넘어갈 때 체크된 항목을 초기화했지만, 이제는 초기화하지 않습니다.
+    },
+  },
 };
 </script>
+
+<style>
+.tab {
+  color: white;
+}
+.v-card-text {
+  padding: 20px;
+}
+.exercise-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.exercise-image {
+  width: 50px;
+  height: 50px;
+}
+.exercise-title {
+  margin-left: 10px;
+}
+.checkbox {
+  margin-left: auto;
+}
+.recordBtn {
+  display: block;
+  margin: 20px auto 0;
+}
+</style>
 
 <style scoped>
 .exercise-item {
@@ -89,5 +127,8 @@ export default {
 }
 .checkbox {
   padding-top: 20px;
+}
+a {
+  text-decoration: none;
 }
 </style>

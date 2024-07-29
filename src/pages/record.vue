@@ -5,9 +5,10 @@
     <v-expansion-panels v-model="panel" :disabled="disabled" multiple>
       <v-expansion-panel class="content">
         <v-expansion-panel-title class="title">
-          벤치프레스<span>총 볼륨수 : {{ totalVolume }} kg</span>
+          벤치프레스
         </v-expansion-panel-title>
         <v-expansion-panel-text>
+          <span class="total-volume">총 볼륨 수 : {{ totalVolume }} kg</span>
           <div v-for="(set, index) in sets" :key="index" class="set-group">
             <div class="set">
               <h3>세트</h3>
@@ -17,9 +18,15 @@
               <h3>kg</h3>
               <input
                 type="number"
+                class="kg-input"
+                variant="outlined"
+                hide-details
+                hide-input
                 v-model.number="set.kg"
                 @input="updateTotalVolume"
-                class="kg-input"
+                @keydown.up.prevent="increaseValue(index)"
+                @keydown.down.prevent="decreaseValue(index)"
+                step="2.5"
               />
             </div>
             <div class="count">
@@ -62,14 +69,12 @@
       <div class="weight-container">
         <h2>몸무게(kg)</h2>
         <v-number-input
-          :reverse="false"
-          controlVariant="split"
-          label=""
-          :hideInput="false"
-          inset
-          variant="solo"
+          control-variant="split"
+          :max="500"
+          :step="5"
+          :model-value="0"
+          variant="outlined"
           bg-color="#0099f7"
-          class="weight-input"
         ></v-number-input>
       </div>
       <div class="photo-container">
@@ -99,7 +104,7 @@ export default {
   data: () => ({
     panel: [0, 1],
     disabled: false,
-    sets: [{ kg: "", count: "", completed: false }],
+    sets: [{ kg: 0, count: 0, completed: false }],
     totalVolume: 0,
     imageUrl: null, // 이미지 URL 저장을 위한 변수
   }),
@@ -107,8 +112,8 @@ export default {
     addSet() {
       const lastSet = this.sets[this.sets.length - 1];
       this.sets.push({
-        kg: lastSet.kg,
-        count: lastSet.count,
+        kg: lastSet.kg || 0,
+        count: lastSet.count || 0,
         completed: false,
       });
       this.updateTotalVolume();
@@ -123,6 +128,16 @@ export default {
       this.totalVolume = this.sets.reduce((total, set) => {
         return set.completed ? total + set.kg * set.count : total;
       }, 0);
+    },
+    increaseValue(index) {
+      this.sets[index].kg += 2.5;
+      this.updateTotalVolume();
+    },
+    decreaseValue(index) {
+      if (this.sets[index].kg >= 2.5) {
+        this.sets[index].kg -= 2.5;
+        this.updateTotalVolume();
+      }
     },
     onFileChange(event) {
       const file = event.target.files[0];
@@ -162,7 +177,7 @@ export default {
 .set-group {
   display: flex;
   justify-content: space-between;
-  padding-bottom: 20px;
+  padding: 10px 0;
   color: #ffff;
 }
 .set,
@@ -173,6 +188,7 @@ export default {
   flex-direction: column;
   align-items: center;
   gap: 10px;
+  width: 100%;
 }
 .complete-check {
   display: flex;
@@ -180,7 +196,7 @@ export default {
 }
 .kg-input,
 .count-input {
-  width: 60px;
+  width: 70px;
   height: 30px;
   font-size: 15px;
   border: 0;
@@ -202,15 +218,15 @@ export default {
 }
 .btn-group .delete-btn,
 .btn-group .add-btn {
-  width: 125px;
   height: 45px;
   border-radius: 20px;
   background: #59b8f9;
   color: white;
   font-size: 16px;
 }
-span {
-  padding-left: 30px;
+.total-volume {
+  color: #ffff;
+  font-size: 18px;
 }
 .diary-container,
 .photo-container,
@@ -230,6 +246,9 @@ span {
 .photo-container .photo img {
   max-width: 100%;
   max-height: 100%;
+}
+a {
+  text-decoration: none;
 }
 /* 쳌박 커스텀 */
 .checkbox {
