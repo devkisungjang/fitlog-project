@@ -49,7 +49,6 @@
           </div>
         </v-expansion-panel-text>
       </v-expansion-panel>
-      <!-- ------------------------------------------------- -->
       <div class="diary-container">
         <h2>오늘의 운동 일지</h2>
         <v-textarea
@@ -68,6 +67,8 @@
           label=""
           :hideInput="false"
           inset
+          :model-value="0"
+          :step="10"
           variant="solo"
           bg-color="#0099f7"
           class="weight-input"
@@ -100,9 +101,9 @@ export default {
   data: () => ({
     panel: [0, 1],
     disabled: false,
-    sets: [{ kg: "", count: "", completed: false }],
+    sets: [{ kg: 0, count: 0, completed: false }],
     totalVolume: 0,
-    imageUrl: null, // 이미지 URL 저장을 위한 변수
+    imageUrl: null,
   }),
   methods: {
     addSet() {
