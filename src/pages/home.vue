@@ -39,7 +39,4 @@ export default {
   color: white;
   font-weight: 700;
 }
-a {
-  text-decoration: none;
-}
 </style>

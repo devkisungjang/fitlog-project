@@ -61,34 +61,6 @@ export default {
 };
 </script>
 
-<style>
-.tab {
-  color: white;
-}
-.v-card-text {
-  padding: 20px;
-}
-.exercise-item {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-}
-.exercise-image {
-  width: 50px;
-  height: 50px;
-}
-.exercise-title {
-  margin-left: 10px;
-}
-.checkbox {
-  margin-left: auto;
-}
-.recordBtn {
-  display: block;
-  margin: 20px auto 0;
-}
-</style>
-
 <style scoped>
 .exercise-item {
   display: flex;
@@ -127,8 +99,5 @@ export default {
 }
 .checkbox {
   padding-top: 20px;
-}
-a {
-  text-decoration: none;
 }
 </style>

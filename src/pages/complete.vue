@@ -3,12 +3,9 @@
     <div class="inner">
       <h1>Good Job~!</h1>
       <div class="exercise-data">
-        <h3>24.07.29.월</h3>
-        <div class="data-wraper">
-          <h2>총 운동 시간 :</h2>
-          <h2>총 볼륨 수 :</h2>
-          <h2>몸무게 :</h2>
-        </div>
+        <h2>총 운동 시간 :</h2>
+        <h2>총 볼륨 수 :</h2>
+        <h2>몸무게 :</h2>
       </div>
     </div>
     <router-link to="/">
@@ -72,22 +69,10 @@ h2 {
   font-size: 30px;
   color: #fff;
 }
-h3 {
-  font-size: 20px;
-  color: #fff;
-}
-.data-wraper {
-  padding: 10px;
-  border: 1px solid #fff;
-  border-radius: 20px;
-}
 .recordBtn {
   width: 100%;
   background: #59b8f9;
   color: white;
   font-weight: 700;
-}
-a {
-  text-decoration: none;
 }
 </style>
