@@ -136,17 +136,18 @@ export default {
   padding: 10px;
   border-radius: 5px;
   border: 1px solid #ccc;
+  outline: none;
 }
 .search-bar button {
   padding: 10px 20px;
   border-radius: 5px;
-  background-color: #007bff;
+  background-color: #0099f7;
   color: white;
   border: none;
   cursor: pointer;
 }
 .search-bar button:hover {
-  background-color: #0056b3;
+  background-color: #33bfff;
 }
 #map {
   width: 100%;
