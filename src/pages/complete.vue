@@ -2,10 +2,14 @@
   <main>
     <div class="inner">
       <h1>Good Job~!</h1>
-      <div class="exercise-data">
-        <h2>총 운동 시간 :</h2>
-        <h2>총 볼륨 수 :</h2>
-        <h2>몸무게 :</h2>
+      <div class="data-group">
+        <h3 class="date">24.07.30</h3>
+        <div class="exercise-data">
+          <font-awesome-icon :icon="['fas', 'clock']" />
+          <h2>총 운동 시간 :</h2>
+          <h2>총 볼륨 수 :</h2>
+          <h2>몸무게 :</h2>
+        </div>
       </div>
     </div>
     <router-link to="/">
@@ -74,5 +78,13 @@ h2 {
   background: #59b8f9;
   color: white;
   font-weight: 700;
+}
+.date {
+  color: #fff;
+}
+.exercise-data {
+  padding: 10px;
+  border: 1px solid #fff;
+  border-radius: 10px;
 }
 </style>

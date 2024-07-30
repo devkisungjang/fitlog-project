@@ -1,11 +1,11 @@
 // Plugins
 import { registerPlugins } from "@/plugins";
 import { createPinia } from "pinia";
+import { useKakao } from "vue3-kakao-maps";
 
 // Components
 import App from "./App.vue";
 import router from "./router";
-import { useKakao } from "vue3-kakao-maps";
 
 // Composables
 import { createApp } from "vue";
