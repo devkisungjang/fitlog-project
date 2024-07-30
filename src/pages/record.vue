@@ -54,7 +54,6 @@
         <v-textarea
           bg-color="#0099f7"
           color="white"
-          label="예시) 대흉근이 웅장해지는 하루였다."
           variant="solo-filled"
           class="textarea"
         ></v-textarea>
