@@ -8,13 +8,19 @@
             <v-date-picker
               color="#0099F7"
               :style="{ width: '100%' }"
+              v-model="selectedDate"
+              @input="onDateSelected"
             ></v-date-picker>
           </v-responsive>
         </v-col>
       </v-row>
     </v-container>
     <router-link to="/exercise_selection">
-      <v-btn rounded="lg" size="x-large" class="recordBtn"
+      <v-btn
+        rounded="lg"
+        size="x-large"
+        class="recordBtn"
+        @click="recordExercise"
         >운동 기록하기!</v-btn
       ></router-link
     >
@@ -23,9 +29,24 @@
 
 <script>
 import Header from "@/components/header.vue";
+import { useFitlogStore } from "@/store/fitlog"; // 경로 수정
 
 export default {
   name: "Home",
+  data() {
+    return {
+      selectedDate: null,
+    };
+  },
+  methods: {
+    onDateSelected(date) {
+      this.selectedDate = date;
+    },
+    recordExercise() {
+      const fitlogStore = useFitlogStore();
+      fitlogStore.setSelectedDate(this.selectedDate);
+    },
+  },
 };
 </script>
 

@@ -52,6 +52,7 @@
       <div class="diary-container">
         <h2>오늘의 운동 일지</h2>
         <v-textarea
+          v-model="diaryEntry"
           bg-color="#0099f7"
           color="white"
           variant="solo-filled"
@@ -61,13 +62,13 @@
       <div class="weight-container">
         <h2>몸무게(kg)</h2>
         <v-number-input
+          v-model="weight"
           :reverse="false"
           controlVariant="split"
           label=""
           :hideInput="false"
           inset
-          :model-value="0"
-          :step="10"
+          :step="0.1"
           variant="solo"
           bg-color="#0099f7"
           class="weight-input"
@@ -87,14 +88,21 @@
       </div>
     </v-expansion-panels>
     <router-link to="/complete">
-      <v-btn rounded="lg" size="x-large" class="recordBtn">운동 완료!</v-btn>
-    </router-link>
+      <v-btn
+        rounded="lg"
+        size="x-large"
+        class="recordBtn"
+        @click="completeWorkout"
+        >운동 완료!</v-btn
+      ></router-link
+    >
   </div>
 </template>
 
 <script>
 import Header from "@/components/header.vue";
 import Stopwatch from "@/components/stopwatch.vue";
+import { useFitlogStore } from "@/store/fitlog";
 
 export default {
   data: () => ({
@@ -102,7 +110,9 @@ export default {
     disabled: false,
     sets: [{ kg: 0, count: 0, completed: false }],
     totalVolume: 0,
+    weight: 0,
     imageUrl: null,
+    diaryEntry: "",
   }),
   methods: {
     addSet() {
@@ -134,6 +144,13 @@ export default {
         };
         reader.readAsDataURL(file);
       }
+    },
+    completeWorkout() {
+      const fitlogStore = useFitlogStore();
+      fitlogStore.setTotalVolume(this.totalVolume);
+      fitlogStore.setWeight(this.weight);
+      // 일지 내용도 저장하려면 적절한 메서드를 사용하여 저장
+      // 예시: fitlogStore.setDiaryEntry(this.diaryEntry);
     },
   },
 };
