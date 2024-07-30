@@ -3,9 +3,8 @@
     <div class="inner">
       <h1>Good Job~!</h1>
       <div class="data-group">
-        <h3 class="date">24.07.30</h3>
+        <h3 class="date">Wed, Jul 24</h3>
         <div class="exercise-data">
-          <font-awesome-icon :icon="['fas', 'clock']" />
           <h2>총 운동 시간 :</h2>
           <h2>총 볼륨 수 :</h2>
           <h2>몸무게 :</h2>
@@ -81,6 +80,7 @@ h2 {
 }
 .date {
   color: #fff;
+  padding-bottom: 5px;
 }
 .exercise-data {
   padding: 10px;
