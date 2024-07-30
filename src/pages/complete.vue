@@ -3,11 +3,11 @@
     <div class="inner">
       <h1>Good Job~!</h1>
       <div class="data-group">
-        <h3 class="date">Wed, Jul 24</h3>
+        <h3 class="date">{{ formattedDate }}</h3>
         <div class="exercise-data">
           <h2>총 운동 시간 :</h2>
-          <h2>총 볼륨 수 :</h2>
-          <h2>몸무게 :</h2>
+          <h2>총 볼륨 수 : {{ totalVolume }} kg</h2>
+          <h2>몸무게 : {{ weight }} kg</h2>
         </div>
       </div>
     </div>
@@ -21,9 +21,27 @@
 
 <script>
 import confetti from "canvas-confetti";
+import { useFitlogStore } from "@/store/fitlog.js"; // Pinia store import
 
 export default {
   name: "Complete",
+  computed: {
+    formattedDate() {
+      const fitlogStore = useFitlogStore();
+      const selectedDate = fitlogStore.selectedDate;
+      return selectedDate
+        ? new Date(selectedDate).toDateString()
+        : "날짜 선택 안됨";
+    },
+    totalVolume() {
+      const fitlogStore = useFitlogStore();
+      return fitlogStore.totalVolume;
+    },
+    weight() {
+      const fitlogStore = useFitlogStore();
+      return fitlogStore.weight;
+    },
+  },
   mounted() {
     this.startConfetti();
   },
@@ -38,7 +56,7 @@ export default {
     },
     launchConfetti() {
       confetti({
-        particleCount: 50, // 파티클 수를 늘림
+        particleCount: 50,
         spread: 70,
         origin: { y: 0.6 },
       });

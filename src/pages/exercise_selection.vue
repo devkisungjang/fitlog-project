@@ -32,7 +32,11 @@
         </v-tab-item>
       </v-tabs-items>
       <router-link to="/record">
-        <v-btn rounded="lg" size="x-large" class="recordBtn"
+        <v-btn
+          rounded="lg"
+          size="x-large"
+          class="recordBtn"
+          @click="startExercise"
           >운동 시작!</v-btn
         ></router-link
       >
@@ -43,19 +47,31 @@
 <script>
 import Header from "@/components/header.vue";
 import exerciseGroups from "@/exercise_groups.json";
+import { useFitlogStore } from "@/store/fitlog.js";
 
 export default {
   data: () => ({
-    tab: Object.keys(exerciseGroups)[0], // 첫 번째 그룹을 초기 탭으로 설정
+    tab: Object.keys(exerciseGroups)[0],
     exerciseGroups: exerciseGroups,
     checkedItems: Object.keys(exerciseGroups).reduce((acc, group) => {
       acc[group] = exerciseGroups[group].map(() => false);
       return acc;
     }, {}),
   }),
-  watch: {
-    tab(newTab, oldTab) {
-      // 기존 로직에서는 새로운 탭으로 넘어갈 때 체크된 항목을 초기화했지만, 이제는 초기화하지 않습니다.
+  methods: {
+    startExercise() {
+      const fitlogStore = useFitlogStore();
+      const selectedExercises = [];
+
+      Object.keys(this.checkedItems).forEach((group, groupIndex) => {
+        this.checkedItems[group].forEach((isChecked, index) => {
+          if (isChecked) {
+            selectedExercises.push(this.exerciseGroups[group][index].name);
+          }
+        });
+      });
+
+      fitlogStore.setSelectedExercises(selectedExercises);
     },
   },
 };

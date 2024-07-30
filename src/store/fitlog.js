@@ -1,19 +1,19 @@
-// src/store/fitlog.js
 import { defineStore } from "pinia";
 
 export const useFitlogStore = defineStore("fitlog", {
   state: () => ({
     selectedDate: null,
-    checkedExercises: {},
+    selectedExercises: [],
     totalVolume: 0,
     weight: 0,
+    // diaryEntry: "", // 필요시 활성화
   }),
   actions: {
     setSelectedDate(date) {
       this.selectedDate = date;
     },
-    setCheckedExercises(group, checkedItems) {
-      this.checkedExercises[group] = checkedItems;
+    setSelectedExercises(exercises) {
+      this.selectedExercises = exercises;
     },
     setTotalVolume(volume) {
       this.totalVolume = volume;
@@ -21,5 +21,8 @@ export const useFitlogStore = defineStore("fitlog", {
     setWeight(weight) {
       this.weight = weight;
     },
+    // setDiaryEntry(entry) {
+    //   this.diaryEntry = entry;
+    // },
   },
 });

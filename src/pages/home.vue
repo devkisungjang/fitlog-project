@@ -29,7 +29,7 @@
 
 <script>
 import Header from "@/components/header.vue";
-import { useFitlogStore } from "@/store/fitlog"; // 경로 수정
+import { useFitlogStore } from "@/store/fitlog.js";
 
 export default {
   name: "Home",

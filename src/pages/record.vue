@@ -2,91 +2,93 @@
   <Header />
   <div class="container">
     <Stopwatch />
-    <v-expansion-panels v-model="panel" :disabled="disabled" multiple>
-      <v-expansion-panel class="content">
-        <v-expansion-panel-title class="title">
-          벤치프레스
-        </v-expansion-panel-title>
-        <v-expansion-panel-text>
-          <span class="total-volume">총 볼륨수 : {{ totalVolume }} kg</span>
-          <div v-for="(set, index) in sets" :key="index" class="set-group">
-            <div class="set">
-              <h3>세트</h3>
-              <h3 class="set-count-num">{{ index + 1 }}</h3>
+    <div v-for="(exercise, index) in selectedExercises" :key="index">
+      <v-expansion-panels v-model="panel" :disabled="disabled" multiple>
+        <v-expansion-panel class="content">
+          <v-expansion-panel-title class="title">{{
+            exercise
+          }}</v-expansion-panel-title>
+          <v-expansion-panel-text>
+            <span class="total-volume">총 볼륨수 : {{ totalVolume }} kg</span>
+            <div v-for="(set, index) in sets" :key="index" class="set-group">
+              <div class="set">
+                <h3>세트</h3>
+                <h3 class="set-count-num">{{ index + 1 }}</h3>
+              </div>
+              <div class="kg">
+                <h3>kg</h3>
+                <input
+                  type="number"
+                  v-model.number="set.kg"
+                  @input="updateTotalVolume"
+                  class="kg-input"
+                />
+              </div>
+              <div class="count">
+                <h3>회</h3>
+                <input
+                  type="number"
+                  v-model.number="set.count"
+                  @input="updateTotalVolume"
+                  class="count-input"
+                />
+              </div>
+              <div class="complete-check">
+                <h3>완료</h3>
+                <label for="checkbox" class="custom-checkbox"></label>
+                <input
+                  type="checkbox"
+                  v-model="set.completed"
+                  @change="updateTotalVolume"
+                  class="checkbox"
+                />
+              </div>
             </div>
-            <div class="kg">
-              <h3>kg</h3>
-              <input
-                type="number"
-                v-model.number="set.kg"
-                @input="updateTotalVolume"
-                class="kg-input"
-              />
+            <div class="btn-group">
+              <v-btn class="delete-btn" @click="removeSet">- 세트삭제</v-btn>
+              <v-btn class="add-btn" @click="addSet">+ 세트추가</v-btn>
             </div>
-            <div class="count">
-              <h3>회</h3>
-              <input
-                type="number"
-                v-model.number="set.count"
-                @input="updateTotalVolume"
-                class="count-input"
-              />
-            </div>
-            <div class="complete-check">
-              <h3>완료</h3>
-              <label for="checkbox" class="custom-checkbox"></label>
-              <input
-                type="checkbox"
-                v-model="set.completed"
-                @change="updateTotalVolume"
-                class="checkbox"
-              />
-            </div>
-          </div>
-          <div class="btn-group">
-            <v-btn class="delete-btn" @click="removeSet">- 세트삭제</v-btn>
-            <v-btn class="add-btn" @click="addSet">+ 세트추가</v-btn>
-          </div>
-        </v-expansion-panel-text>
-      </v-expansion-panel>
-      <div class="diary-container">
-        <h2>오늘의 운동 일지</h2>
-        <v-textarea
-          v-model="diaryEntry"
-          bg-color="#0099f7"
-          color="white"
-          variant="solo-filled"
-          class="textarea"
-        ></v-textarea>
+          </v-expansion-panel-text>
+        </v-expansion-panel>
+      </v-expansion-panels>
+    </div>
+    <div class="diary-container">
+      <h2>오늘의 운동 일지</h2>
+      <v-textarea
+        v-model="diaryEntry"
+        bg-color="#0099f7"
+        color="white"
+        variant="solo-filled"
+        class="textarea"
+      ></v-textarea>
+    </div>
+    <div class="weight-container">
+      <h2>몸무게(kg)</h2>
+      <v-number-input
+        v-model="weight"
+        :reverse="false"
+        controlVariant="split"
+        label=""
+        :hideInput="false"
+        inset
+        :step="0.1"
+        variant="solo"
+        bg-color="#0099f7"
+        class="weight-input"
+      ></v-number-input>
+    </div>
+    <div class="photo-container">
+      <h2>운동 사진</h2>
+      <v-file-input
+        prepend-icon="mdi-camera"
+        variant="solo"
+        @change="onFileChange"
+      ></v-file-input>
+      <div class="photo">
+        <span v-if="!imageUrl">사진을 등록해주세요!</span>
+        <img v-if="imageUrl" :src="imageUrl" alt="Uploaded Photo" />
       </div>
-      <div class="weight-container">
-        <h2>몸무게(kg)</h2>
-        <v-number-input
-          v-model="weight"
-          :reverse="false"
-          controlVariant="split"
-          label=""
-          :hideInput="false"
-          inset
-          :step="0.1"
-          variant="solo"
-          bg-color="#0099f7"
-          class="weight-input"
-        ></v-number-input>
-      </div>
-      <div class="photo-container">
-        <h2>운동 사진</h2>
-        <v-file-input
-          prepend-icon="mdi-camera"
-          variant="solo"
-          @change="onFileChange"
-        ></v-file-input>
-        <div class="photo">
-          <span v-if="!imageUrl">사진을 등록해주세요!</span>
-          <img v-if="imageUrl" :src="imageUrl" alt="Uploaded Photo" />
-        </div>
-      </div>
-    </v-expansion-panels>
+    </div>
     <router-link to="/complete">
       <v-btn
         rounded="lg"
@@ -94,15 +96,15 @@
         class="recordBtn"
         @click="completeWorkout"
         >운동 완료!</v-btn
-      ></router-link
-    >
+      >
+    </router-link>
   </div>
 </template>
 
 <script>
 import Header from "@/components/header.vue";
 import Stopwatch from "@/components/stopwatch.vue";
-import { useFitlogStore } from "@/store/fitlog";
+import { useFitlogStore } from "@/store/fitlog.js";
 
 export default {
   data: () => ({
@@ -114,6 +116,12 @@ export default {
     imageUrl: null,
     diaryEntry: "",
   }),
+  computed: {
+    selectedExercises() {
+      const fitlogStore = useFitlogStore();
+      return fitlogStore.selectedExercises;
+    },
+  },
   methods: {
     addSet() {
       const lastSet = this.sets[this.sets.length - 1];
@@ -149,8 +157,6 @@ export default {
       const fitlogStore = useFitlogStore();
       fitlogStore.setTotalVolume(this.totalVolume);
       fitlogStore.setWeight(this.weight);
-      // 일지 내용도 저장하려면 적절한 메서드를 사용하여 저장
-      // 예시: fitlogStore.setDiaryEntry(this.diaryEntry);
     },
   },
 };
