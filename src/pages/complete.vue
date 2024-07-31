@@ -70,44 +70,74 @@ export default {
 </script>
 
 <style scoped>
-/* 스타일 유지 */
+/* 기본 설정 */
 main {
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
-  height: 100vh;
+  min-height: 100vh;
   background: #0099f7;
-  padding: 10px;
+  padding: 20px;
+  text-align: center;
+  color: #ffffff;
 }
+
 .inner {
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
-  gap: 100px;
-  padding: 20px;
-}
-h1 {
-  text-align: center;
-  font-size: 60px;
-  color: #fff;
-}
-h2 {
-  font-size: 30px;
-  color: #fff;
-}
-.recordBtn {
   width: 100%;
+  max-width: 600px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 40px 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  font-size: 48px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.data-group {
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.date {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.exercise-data {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  padding: 20px;
+  color: #fff;
+  text-align: left;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  font-size: 24px;
+  margin: 10px 0;
+}
+
+.recordBtn {
+  width: 100%; /* 가로값이 꽉 차도록 설정 */
   background: #59b8f9;
   color: white;
   font-weight: 700;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
 }
-.date {
-  color: #fff;
-  padding-bottom: 5px;
-}
-.exercise-data {
-  padding: 10px;
-  border: 1px solid #fff;
-  border-radius: 10px;
+a {
+  text-decoration: none;
 }
 </style>

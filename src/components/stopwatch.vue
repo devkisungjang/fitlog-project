@@ -92,7 +92,6 @@ export default {
 </script>
 
 <style scoped>
-/* 스타일 유지 */
 #clock {
   display: flex;
   flex-direction: column;
@@ -100,25 +99,75 @@ export default {
   width: 100%;
   color: #0099f7;
   background-color: white;
-  border-radius: 30px;
-  padding: 20px;
   border-radius: 20px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  padding: 20px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.1);
 }
+
 .time {
-  font-size: 6cqh;
+  font-size: 48px; /* 더 큰 글꼴 크기로 시간 강조 */
+  font-weight: bold;
+  margin-bottom: 20px;
 }
+
 .text {
   margin-top: 30px;
   font-size: 1em;
   color: rgba(255, 255, 255, 0.4);
   text-align: center;
 }
+
 .btn-container {
   display: flex;
   justify-content: center;
-  gap: 30px;
+  gap: 20px; /* 버튼 사이 간격 축소 */
   margin-top: 15px;
   width: 100%;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  background-color: #0099f7;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+button:hover {
+  background-color: #007acc;
+  transform: scale(1.05);
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+.start {
+  background-color: #28a745; /* 시작 버튼은 녹색 */
+}
+
+.start:hover {
+  background-color: #218838;
+}
+
+.stop {
+  background-color: #dc3545; /* 일시정지 버튼은 빨간색 */
+}
+
+.stop:hover {
+  background-color: #c82333;
+}
+
+.reset {
+  background-color: #ffc107; /* 초기화 버튼은 노란색 */
+}
+
+.reset:hover {
+  background-color: #e0a800;
 }
 </style>

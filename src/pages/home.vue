@@ -6,10 +6,11 @@
         <v-col cols="12">
           <v-responsive>
             <v-date-picker
-              color="#0099F7"
+              color="#0099f7"
               :style="{ width: '100%' }"
               v-model="selectedDate"
               @input="onDateSelected"
+              :locale="locale"
             ></v-date-picker>
           </v-responsive>
         </v-col>
@@ -30,34 +31,87 @@
 <script>
 import Header from "@/components/header.vue";
 import { useFitlogStore } from "@/store/fitlog.js";
+import { ref } from "vue";
 
 export default {
   name: "Home",
-  data() {
-    return {
-      selectedDate: null,
-    };
+  components: {
+    Header,
   },
-  methods: {
-    onDateSelected(date) {
-      this.selectedDate = date;
-    },
-    recordExercise() {
-      const fitlogStore = useFitlogStore();
-      fitlogStore.setSelectedDate(this.selectedDate);
-    },
+  setup() {
+    const selectedDate = ref(null);
+    const fitlogStore = useFitlogStore();
+
+    const onDateSelected = (date) => {
+      selectedDate.value = date;
+    };
+
+    const recordExercise = () => {
+      fitlogStore.setSelectedDate(selectedDate.value);
+    };
+
+    return {
+      selectedDate,
+      onDateSelected,
+      recordExercise,
+    };
   },
 };
 </script>
 
 <style scoped>
-.container {
-  padding: 0 10px;
+/* Reset and base styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Helvetica Neue", Arial, sans-serif;
 }
+
+body {
+  background-color: #f0f4f8;
+  color: #333;
+}
+
+/* Container styling */
+.container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+/* Date Picker styling */
+.v-date-picker {
+  margin-bottom: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Button styling */
 .recordBtn {
   width: 100%;
-  background: #0099f7;
+  background-color: #0099f7;
   color: white;
   font-weight: 700;
+  padding: 15px 0;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 18px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
+}
+header {
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #0099f7;
+}
+
+a {
+  text-decoration: none;
 }
 </style>

@@ -89,61 +89,83 @@ export default {
 </script>
 
 <style scoped>
+/* 전반적인 스타일 및 레이아웃 */
+.container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.v-card {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.v-card-text {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-top: 1px solid #ddd;
+}
+
+/* 운동 항목 스타일 */
 .exercise-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 150px;
-  padding: 0px 10px;
-  margin-bottom: 20px;
-  border-radius: 20px;
+  padding: 15px 10px;
+  margin-bottom: 15px;
+  border-radius: 10px;
   background-color: white;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .exercise-item.selected {
-  background-color: #cceeff; /* 청록색 계열의 밝은 색상 */
-  transform: scale(1.02);
+  background-color: #e6f7ff; /* 선택된 항목의 배경색 */
+  transform: scale(1.03);
+}
+
+.exercise-item:hover {
+  background-color: #f0f9ff;
 }
 
 .exercise-image {
-  height: 120px;
-  width: 120px;
+  height: 100px;
+  width: 100px;
   object-fit: cover;
-  margin-right: 10px;
+  margin-right: 15px;
+  border-radius: 8px;
 }
 
 .exercise-title {
   flex: 1;
-  font-size: 20px;
-  font-weight: 700;
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
   text-align: center;
 }
 
 .check-icon {
-  font-size: 36px;
-  margin-left: 20px;
-  margin-right: 20px;
-  width: 36px;
-  height: 36px;
+  font-size: 28px;
+  transition: color 0.3s;
 }
 
-.v-card-text {
-  padding: 10px 10px;
-  background-color: #f3f4f6;
-}
-
+/* 운동 시작 버튼 스타일 */
 .recordBtn {
   width: 100%;
-  background: #0099f7;
+  background-color: #0099f7;
   color: white;
   font-weight: 700;
-}
-
-.tab {
-  font-size: 16px;
+  padding: 15px 0;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 18px;
+  transition: background-color 0.3s, transform 0.2s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 </style>

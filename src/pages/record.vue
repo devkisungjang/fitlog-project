@@ -311,6 +311,7 @@ h2 {
   cursor: pointer;
   accent-color: #0099f7; /* 체크박스 색상 */
   transition: transform 0.2s;
+  padding-bottom: 10px;
 }
 
 .checkbox:checked {
