@@ -67,9 +67,9 @@
     <div class="diary-container">
       <h2>오늘의 운동 일지</h2>
       <v-textarea
-        bg-color="#0099f7"
+        bg-color="#f5f5f5"
         clearable
-        variant="outlined"
+        variant="solo"
         v-model="diaryEntry"
         class="textarea"
       ></v-textarea>
@@ -231,25 +231,21 @@ export default {
   padding: 20px;
   background-color: #f0f4f8;
   border-radius: 10px;
-  max-width: 900px;
+  max-width: 1199px;
   margin: auto;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* 헤더 */
 h2 {
-  font-size: 24px;
-  font-weight: bold;
   color: #333;
   margin-bottom: 10px;
 }
 
 /* 확장 패널 */
 .content {
-  background: #fff;
   border-radius: 10px;
   overflow: hidden;
-  margin-bottom: 20px;
 }
 
 .title {
@@ -274,6 +270,7 @@ h2 {
   flex-direction: column;
   align-items: center;
   flex: 1;
+  height: 65px;
 }
 
 .kg-input,
@@ -296,37 +293,31 @@ h2 {
 }
 .complete-check {
   display: flex;
-  align-items: center;
-  gap: 8px;
 }
 
 .complete-check label {
   font-size: 16px;
-  color: #333;
+  /* color: #333; */
 }
 
 .checkbox {
-  width: 24px; /* 체크박스 크기 증가 */
-  height: 24px; /* 체크박스 크기 증가 */
+  width: 24px;
+  height: 24px;
   cursor: pointer;
-  accent-color: #0099f7; /* 체크박스 색상 */
+  accent-color: #0099f7;
   transition: transform 0.2s;
-  padding-bottom: 10px;
+  margin-top: 9px;
 }
 
 .checkbox:checked {
-  transform: scale(1.1); /* 체크되었을 때 약간 확대 */
-}
-
-.checkbox:hover {
-  transform: scale(1.1); /* 마우스 오버 시 확대 효과 */
+  transform: scale(1.1);
 }
 
 /* 버튼 그룹 */
 .btn-group {
   display: flex;
   justify-content: center;
-  gap: 10px;
+  gap: 20px;
   margin-top: 15px;
 }
 
@@ -334,47 +325,25 @@ h2 {
 .btn-group .add-btn {
   background: #0099f7;
   color: white;
-  border-radius: 5px;
+  border-radius: 20px;
   font-size: 16px;
-  padding: 10px 20px;
-  transition: background-color 0.3s;
-}
-
-.btn-group .delete-btn:hover,
-.btn-group .add-btn:hover {
-  background-color: #007acc;
+  font-weight: 700;
 }
 
 /* 총 볼륨 */
 .total-volume {
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 700;
   color: #0099f7;
-  padding-bottom: 20px;
-  text-align: center;
-  margin-top: 10px;
 }
 
 /* 다이어리 컨테이너 */
 .diary-container {
+  text-align: center;
   background: #fff;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.textarea {
-  width: 100%;
-  border-radius: 5px;
-  border: 1px solid #ddd;
-  padding: 10px;
-  outline: none;
-  resize: none;
-  transition: border-color 0.3s;
-}
-
-.textarea:focus {
-  border-color: #0099f7;
 }
 
 /* 몸무게 입력 */
@@ -390,13 +359,11 @@ h2 {
   width: 100%;
   max-width: 200px;
   margin: 0 auto;
-  border-radius: 5px;
 }
 
 /* 사진 업로드 */
 .photo-container {
   width: 100%;
-  margin-top: 20px;
   text-align: center;
   background: #fff;
   padding: 20px;
@@ -409,7 +376,7 @@ h2 {
 }
 
 .photo-upload-label {
-  display: inline-block;
+  max-width: 300px;
   padding: 15px 30px;
   border: 2px solid #0099f7;
   border-radius: 5px;
@@ -423,12 +390,6 @@ h2 {
   margin-bottom: 15px;
 }
 
-.photo-upload-label:hover {
-  background-color: #007acc;
-  border-color: #007acc;
-  transform: scale(1.05);
-}
-
 .photo-preview {
   display: flex;
   flex-wrap: wrap;
@@ -439,13 +400,8 @@ h2 {
 
 .image-preview {
   position: relative;
-  width: 120px;
-  height: 120px;
-  overflow: hidden;
-  border-radius: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 150px;
+  height: 150px;
   background-color: #f9f9f9;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;

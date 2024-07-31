@@ -84,10 +84,6 @@ main {
 }
 
 .inner {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   width: 100%;
   max-width: 600px;
   background: rgba(255, 255, 255, 0.1);
@@ -98,24 +94,24 @@ main {
 
 h1 {
   font-size: 48px;
-  font-weight: bold;
   margin-bottom: 20px;
   color: #fff;
 }
 
 .data-group {
   width: 100%;
-  margin-bottom: 30px;
 }
 
 .date {
   font-size: 24px;
-  font-weight: bold;
   margin-bottom: 10px;
   color: #fff;
 }
 
 .exercise-data {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   background: rgba(255, 255, 255, 0.2);
   border-radius: 10px;
   padding: 20px;
@@ -126,7 +122,6 @@ h1 {
 
 h2 {
   font-size: 24px;
-  margin: 10px 0;
 }
 
 .recordBtn {

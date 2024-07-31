@@ -60,23 +60,9 @@ export default {
 </script>
 
 <style scoped>
-/* Reset and base styles */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: "Helvetica Neue", Arial, sans-serif;
-}
-
-body {
-  background-color: #f0f4f8;
-  color: #333;
-}
-
-/* Container styling */
 .container {
-  max-width: 600px;
-  margin: 40px auto;
+  max-width: 1199px;
+  margin: auto;
   padding: 20px;
   background-color: #ffffff;
   border-radius: 15px;
@@ -84,31 +70,12 @@ body {
   text-align: center;
 }
 
-/* Date Picker styling */
-.v-date-picker {
-  margin-bottom: 20px;
-  border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-/* Button styling */
 .recordBtn {
   width: 100%;
   background-color: #0099f7;
   color: white;
   font-weight: 700;
-  padding: 15px 0;
-  border-radius: 10px;
-  text-align: center;
-  font-size: 18px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-decoration: none;
-}
-header {
-  margin-bottom: 20px;
-  font-size: 24px;
-  font-weight: bold;
-  color: #0099f7;
 }
 
 a {

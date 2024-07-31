@@ -89,34 +89,22 @@ export default {
 </script>
 
 <style scoped>
-/* 전반적인 스타일 및 레이아웃 */
-.container {
-  max-width: 900px;
-  margin: 40px auto;
-  padding: 20px;
-  background-color: #ffffff;
-  border-radius: 15px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
 .v-card {
+  max-width: 1199px;
+  margin: auto;
   border-radius: 10px;
-  overflow: hidden;
 }
 
 .v-card-text {
   padding: 20px;
   background-color: #f9f9f9;
-  border-top: 1px solid #ddd;
 }
 
-/* 운동 항목 스타일 */
 .exercise-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
-  padding: 15px 10px;
+  padding: 20px;
   margin-bottom: 15px;
   border-radius: 10px;
   background-color: white;
@@ -130,29 +118,22 @@ export default {
   transform: scale(1.03);
 }
 
-.exercise-item:hover {
-  background-color: #f0f9ff;
-}
-
 .exercise-image {
-  height: 100px;
-  width: 100px;
+  height: 80px;
+  width: 80px;
   object-fit: cover;
   margin-right: 15px;
   border-radius: 8px;
 }
 
 .exercise-title {
-  flex: 1;
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 700;
   color: #333;
-  text-align: center;
 }
 
 .check-icon {
   font-size: 28px;
-  transition: color 0.3s;
 }
 
 /* 운동 시작 버튼 스타일 */
@@ -163,9 +144,7 @@ export default {
   font-weight: 700;
   padding: 15px 0;
   border-radius: 10px;
-  text-align: center;
   font-size: 18px;
-  transition: background-color 0.3s, transform 0.2s;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 </style>
