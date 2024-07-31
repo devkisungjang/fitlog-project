@@ -5,9 +5,9 @@
     <div v-for="(exercise, exerciseIndex) in exercises" :key="exerciseIndex">
       <v-expansion-panels v-model="exercise.expanded" multiple>
         <v-expansion-panel class="content">
-          <v-expansion-panel-title class="title">{{
-            exercise.name
-          }}</v-expansion-panel-title>
+          <v-expansion-panel-title class="title">
+            {{ exercise.name }}
+          </v-expansion-panel-title>
           <v-expansion-panel-text>
             <span class="total-volume"
               >총 볼륨수 : {{ calculateTotalVolume(exerciseIndex) }} kg</span
@@ -67,10 +67,10 @@
     <div class="diary-container">
       <h2>오늘의 운동 일지</h2>
       <v-textarea
-        v-model="diaryEntry"
         bg-color="#0099f7"
-        color="white"
-        variant="solo-filled"
+        clearable
+        variant="outlined"
+        v-model="diaryEntry"
         class="textarea"
       ></v-textarea>
     </div>
@@ -83,7 +83,7 @@
         label=""
         :hideInput="false"
         inset
-        :step="0.1"
+        :step="10"
         variant="solo"
         bg-color="#0099f7"
         class="weight-input"
@@ -91,14 +91,28 @@
     </div>
     <div class="photo-container">
       <h2>운동 사진</h2>
-      <v-file-input
-        prepend-icon="mdi-camera"
-        variant="solo"
+      <input
+        type="file"
+        multiple
+        accept="image/*"
         @change="onFileChange"
-      ></v-file-input>
-      <div class="photo">
-        <span v-if="!imageUrl">사진을 등록해주세요!</span>
-        <img v-if="imageUrl" :src="imageUrl" alt="Uploaded Photo" />
+        id="photo-upload"
+        class="photo-upload-input"
+      />
+      <label for="photo-upload" class="photo-upload-label">
+        <v-icon>mdi-camera</v-icon> 사진을 추가해주세요
+      </label>
+      <div class="photo-preview">
+        <div
+          v-for="(image, index) in images"
+          :key="index"
+          class="image-preview"
+        >
+          <img :src="image.url" alt="Uploaded Photo" />
+          <v-icon class="remove-icon" @click="removeImage(index)"
+            >mdi-close-circle</v-icon
+          >
+        </div>
       </div>
     </div>
     <router-link to="/complete">
@@ -108,8 +122,8 @@
         class="recordBtn"
         @click="completeWorkout"
         >운동 완료!</v-btn
-      ></router-link
-    >
+      >
+    </router-link>
   </div>
 </template>
 
@@ -124,10 +138,10 @@ export default {
     Stopwatch,
   },
   data: () => ({
-    exercises: [], // 운동 목록과 세트 정보 저장
+    exercises: [],
     totalVolume: 0,
     weight: 0,
-    imageUrl: null,
+    images: [], // 여러 이미지를 저장할 배열
     diaryEntry: "",
   }),
   computed: {
@@ -142,7 +156,7 @@ export default {
         this.exercises = newExercises.map((exercise) => ({
           name: exercise,
           sets: [{ kg: 0, count: 0, completed: false }],
-          expanded: [0], // 기본적으로 첫 번째 패널만 열림 상태로 설정
+          expanded: [0],
         }));
       },
       immediate: true,
@@ -185,54 +199,73 @@ export default {
       }, 0);
     },
     onFileChange(event) {
-      const file = event.target.files[0];
-      if (file) {
+      const files = event.target.files;
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
         const reader = new FileReader();
         reader.onload = (e) => {
-          this.imageUrl = e.target.result;
+          this.images.push({ file, url: e.target.result });
         };
         reader.readAsDataURL(file);
       }
     },
+    removeImage(index) {
+      this.images.splice(index, 1);
+    },
     completeWorkout() {
-      this.$refs.stopwatch.stop(); // 스톱워치 멈추기
+      this.$refs.stopwatch.stop();
       const fitlogStore = useFitlogStore();
       fitlogStore.setTotalVolume(this.totalVolume);
       fitlogStore.setWeight(this.weight);
-      // 필요한 경우 기타 데이터를 저장
     },
   },
 };
 </script>
 
 <style scoped>
+/* 컨테이너 */
 .container {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding: 10px 10px;
-  background-color: #f3f4f6;
+  padding: 20px;
+  background-color: #f0f4f8;
+  border-radius: 10px;
+  max-width: 900px;
+  margin: auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
+/* 헤더 */
+h2 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+/* 확장 패널 */
 .content {
-  display: flex;
-  flex-direction: column;
-  border-radius: 20px;
-  width: 100%;
-  background: #0099f7;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 20px;
 }
+
 .title {
   font-size: 20px;
-  color: #ffff;
+  color: #333;
   font-weight: 700;
-  border-bottom: 1px solid #ffff;
 }
+
 .set-group {
   display: flex;
   justify-content: space-between;
-  padding-top: 10px;
-  padding-bottom: 20px;
-  color: #ffff;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
 }
+
 .set,
 .kg,
 .count,
@@ -240,73 +273,220 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  flex: 1;
+}
+
+.kg-input,
+.count-input {
+  width: 80px;
+  height: 35px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 5px;
+  text-align: center;
+  outline: none;
+  margin-top: 5px;
+  transition: border-color 0.3s;
+}
+
+.kg-input:focus,
+.count-input:focus {
+  border-color: #0099f7;
 }
 .complete-check {
   display: flex;
-  gap: 5px;
+  align-items: center;
+  gap: 8px;
 }
-.kg-input,
-.count-input {
-  width: 60px;
-  height: 30px;
-  font-size: 15px;
-  border: 0;
-  border-radius: 15px;
+
+.complete-check label {
+  font-size: 16px;
+  color: #333;
+}
+
+.checkbox {
+  width: 24px; /* 체크박스 크기 증가 */
+  height: 24px; /* 체크박스 크기 증가 */
+  cursor: pointer;
+  accent-color: #0099f7; /* 체크박스 색상 */
+  transition: transform 0.2s;
+}
+
+.checkbox:checked {
+  transform: scale(1.1); /* 체크되었을 때 약간 확대 */
+}
+
+.checkbox:hover {
+  transform: scale(1.1); /* 마우스 오버 시 확대 효과 */
+}
+
+/* 버튼 그룹 */
+.btn-group {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.btn-group .delete-btn,
+.btn-group .add-btn {
+  background: #0099f7;
+  color: white;
+  border-radius: 5px;
+  font-size: 16px;
+  padding: 10px 20px;
+  transition: background-color 0.3s;
+}
+
+.btn-group .delete-btn:hover,
+.btn-group .add-btn:hover {
+  background-color: #007acc;
+}
+
+/* 총 볼륨 */
+.total-volume {
+  font-size: 18px;
+  font-weight: 600;
+  color: #0099f7;
+  padding-bottom: 20px;
+  text-align: center;
+  margin-top: 10px;
+}
+
+/* 다이어리 컨테이너 */
+.diary-container {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.textarea {
+  width: 100%;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  padding: 10px;
   outline: none;
-  padding-left: 10px;
-  background-color: rgb(233, 233, 233);
+  resize: none;
+  transition: border-color 0.3s;
 }
+
+.textarea:focus {
+  border-color: #0099f7;
+}
+
+/* 몸무게 입력 */
+.weight-container {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.weight-input {
+  width: 100%;
+  max-width: 200px;
+  margin: 0 auto;
+  border-radius: 5px;
+}
+
+/* 사진 업로드 */
+.photo-container {
+  width: 100%;
+  margin-top: 20px;
+  text-align: center;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.photo-upload-input {
+  display: none;
+}
+
+.photo-upload-label {
+  display: inline-block;
+  padding: 15px 30px;
+  border: 2px solid #0099f7;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #fff;
+  background-color: #0099f7;
+  font-weight: bold;
+  transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.2s;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 15px;
+}
+
+.photo-upload-label:hover {
+  background-color: #007acc;
+  border-color: #007acc;
+  transform: scale(1.05);
+}
+
+.photo-preview {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.image-preview {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  overflow: hidden;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.image-preview:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.image-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.remove-icon {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 20px;
+  color: red;
+  cursor: pointer;
+  background-color: white;
+  border-radius: 50%;
+  padding: 2px;
+}
+
+/* 운동 완료 버튼 */
 .recordBtn {
   width: 100%;
   background: #0099f7;
   color: white;
   font-weight: 700;
+  padding: 15px;
+  border-radius: 5px;
+  text-align: center;
+  transition: background-color 0.3s;
 }
-.btn-group {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-}
-.btn-group .delete-btn,
-.btn-group .add-btn {
-  width: 125px;
-  height: 45px;
-  border-radius: 20px;
-  background: #59b8f9;
-  color: white;
-  font-size: 16px;
-}
-.total-volume {
-  font-size: 18px;
-  font-weight: 600;
-  color: white;
-  padding-bottom: 20px;
-}
-.diary-container,
-.photo-container,
-.weight-container {
-  width: 100%;
-  margin-top: 20px;
-}
-.photo-container .photo {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 400px;
-  border: 1px solid black;
-  border-radius: 20px;
-}
-.photo-container .photo img {
-  max-width: 100%;
-  max-height: 100%;
-}
-/* 쳌박 커스텀 */
-.checkbox {
-  width: 30px;
-  height: 30px;
-  cursor: pointer;
-  padding-bottom: 10px;
+
+.recordBtn:hover {
+  background-color: #007acc;
 }
 </style>
