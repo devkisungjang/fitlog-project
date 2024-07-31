@@ -1,19 +1,25 @@
 <template>
   <Header />
   <div class="container">
-    <Stopwatch />
-    <div v-for="(exercise, index) in selectedExercises" :key="index">
-      <v-expansion-panels v-model="panel" :disabled="disabled" multiple>
+    <Stopwatch ref="stopwatch" />
+    <div v-for="(exercise, exerciseIndex) in exercises" :key="exerciseIndex">
+      <v-expansion-panels v-model="exercise.expanded" multiple>
         <v-expansion-panel class="content">
           <v-expansion-panel-title class="title">{{
-            exercise
+            exercise.name
           }}</v-expansion-panel-title>
           <v-expansion-panel-text>
-            <span class="total-volume">총 볼륨수 : {{ totalVolume }} kg</span>
-            <div v-for="(set, index) in sets" :key="index" class="set-group">
+            <span class="total-volume"
+              >총 볼륨수 : {{ calculateTotalVolume(exerciseIndex) }} kg</span
+            >
+            <div
+              v-for="(set, setIndex) in exercise.sets"
+              :key="setIndex"
+              class="set-group"
+            >
               <div class="set">
                 <h3>세트</h3>
-                <h3 class="set-count-num">{{ index + 1 }}</h3>
+                <h3 class="set-count-num">{{ setIndex + 1 }}</h3>
               </div>
               <div class="kg">
                 <h3>kg</h3>
@@ -22,6 +28,7 @@
                   v-model.number="set.kg"
                   @input="updateTotalVolume"
                   class="kg-input"
+                  step="2.5"
                 />
               </div>
               <div class="count">
@@ -31,6 +38,7 @@
                   v-model.number="set.count"
                   @input="updateTotalVolume"
                   class="count-input"
+                  step="5"
                 />
               </div>
               <div class="complete-check">
@@ -45,8 +53,12 @@
               </div>
             </div>
             <div class="btn-group">
-              <v-btn class="delete-btn" @click="removeSet">- 세트삭제</v-btn>
-              <v-btn class="add-btn" @click="addSet">+ 세트추가</v-btn>
+              <v-btn class="delete-btn" @click="removeSet(exerciseIndex)"
+                >- 세트삭제</v-btn
+              >
+              <v-btn class="add-btn" @click="addSet(exerciseIndex)"
+                >+ 세트추가</v-btn
+              >
             </div>
           </v-expansion-panel-text>
         </v-expansion-panel>
@@ -96,8 +108,8 @@
         class="recordBtn"
         @click="completeWorkout"
         >운동 완료!</v-btn
-      >
-    </router-link>
+      ></router-link
+    >
   </div>
 </template>
 
@@ -107,10 +119,12 @@ import Stopwatch from "@/components/stopwatch.vue";
 import { useFitlogStore } from "@/store/fitlog.js";
 
 export default {
+  components: {
+    Header,
+    Stopwatch,
+  },
   data: () => ({
-    panel: [0, 1],
-    disabled: false,
-    sets: [{ kg: 0, count: 0, completed: false }],
+    exercises: [], // 운동 목록과 세트 정보 저장
     totalVolume: 0,
     weight: 0,
     imageUrl: null,
@@ -122,24 +136,51 @@ export default {
       return fitlogStore.selectedExercises;
     },
   },
+  watch: {
+    selectedExercises: {
+      handler(newExercises) {
+        this.exercises = newExercises.map((exercise) => ({
+          name: exercise,
+          sets: [{ kg: 0, count: 0, completed: false }],
+          expanded: [0], // 기본적으로 첫 번째 패널만 열림 상태로 설정
+        }));
+      },
+      immediate: true,
+    },
+  },
   methods: {
-    addSet() {
-      const lastSet = this.sets[this.sets.length - 1];
-      this.sets.push({
+    addSet(exerciseIndex) {
+      const lastSet =
+        this.exercises[exerciseIndex].sets[
+          this.exercises[exerciseIndex].sets.length - 1
+        ];
+      this.exercises[exerciseIndex].sets.push({
         kg: lastSet.kg,
         count: lastSet.count,
         completed: false,
       });
       this.updateTotalVolume();
     },
-    removeSet() {
-      if (this.sets.length > 1) {
-        this.sets.pop();
+    removeSet(exerciseIndex) {
+      if (this.exercises[exerciseIndex].sets.length > 1) {
+        this.exercises[exerciseIndex].sets.pop();
         this.updateTotalVolume();
       }
     },
     updateTotalVolume() {
-      this.totalVolume = this.sets.reduce((total, set) => {
+      this.totalVolume = this.exercises.reduce((total, exercise) => {
+        return (
+          total +
+          exercise.sets.reduce((exerciseTotal, set) => {
+            return set.completed
+              ? exerciseTotal + set.kg * set.count
+              : exerciseTotal;
+          }, 0)
+        );
+      }, 0);
+    },
+    calculateTotalVolume(exerciseIndex) {
+      return this.exercises[exerciseIndex].sets.reduce((total, set) => {
         return set.completed ? total + set.kg * set.count : total;
       }, 0);
     },
@@ -154,9 +195,11 @@ export default {
       }
     },
     completeWorkout() {
+      this.$refs.stopwatch.stop(); // 스톱워치 멈추기
       const fitlogStore = useFitlogStore();
       fitlogStore.setTotalVolume(this.totalVolume);
       fitlogStore.setWeight(this.weight);
+      // 필요한 경우 기타 데이터를 저장
     },
   },
 };

@@ -10,6 +10,8 @@
 </template>
 
 <script>
+import { useFitlogStore } from "@/store/fitlog.js";
+
 export default {
   name: "Stopwatch",
   data() {
@@ -36,13 +38,17 @@ export default {
           new Date().getTime() - this.timeStopped.getTime();
       }
 
-      this.started = setInterval(this.clockRunning, 1000);
+      this.started = setInterval(() => {
+        this.clockRunning();
+        this.saveTime(); // 실시간으로 시간 업데이트
+      }, 1000);
       this.running = true;
     },
     stop() {
       this.running = false;
       this.timeStopped = new Date();
       clearInterval(this.started);
+      this.saveTime(); // 시간 저장
     },
     reset() {
       this.running = false;
@@ -51,6 +57,7 @@ export default {
       this.timeBegan = null;
       this.timeStopped = null;
       this.time = "00:00:00";
+      this.saveTime(); // 시간 초기화 시 저장
     },
     clockRunning() {
       let currentTime = new Date();
@@ -75,11 +82,17 @@ export default {
       }
       return (zero + num).slice(-digit);
     },
+    saveTime() {
+      const fitlogStore = useFitlogStore();
+      fitlogStore.setTotalWorkoutTime(this.time);
+    },
   },
+  expose: ["stop"], // stop 메서드를 외부에서 호출할 수 있도록 설정
 };
 </script>
 
 <style scoped>
+/* 스타일 유지 */
 #clock {
   display: flex;
   flex-direction: column;
@@ -101,7 +114,6 @@ export default {
   color: rgba(255, 255, 255, 0.4);
   text-align: center;
 }
-
 .btn-container {
   display: flex;
   justify-content: center;

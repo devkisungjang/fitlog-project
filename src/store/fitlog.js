@@ -6,7 +6,7 @@ export const useFitlogStore = defineStore("fitlog", {
     selectedExercises: [],
     totalVolume: 0,
     weight: 0,
-    // diaryEntry: "", // 필요시 활성화
+    totalWorkoutTime: "00:00:00", // 추가
   }),
   actions: {
     setSelectedDate(date) {
@@ -21,8 +21,9 @@ export const useFitlogStore = defineStore("fitlog", {
     setWeight(weight) {
       this.weight = weight;
     },
-    // setDiaryEntry(entry) {
-    //   this.diaryEntry = entry;
-    // },
+    setTotalWorkoutTime(time) {
+      // 추가
+      this.totalWorkoutTime = time;
+    },
   },
 });

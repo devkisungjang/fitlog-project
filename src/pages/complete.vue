@@ -5,7 +5,7 @@
       <div class="data-group">
         <h3 class="date">{{ formattedDate }}</h3>
         <div class="exercise-data">
-          <h2>총 운동 시간 :</h2>
+          <h2>총 운동 시간 : {{ totalWorkoutTime }}</h2>
           <h2>총 볼륨 수 : {{ totalVolume }} kg</h2>
           <h2>몸무게 : {{ weight }} kg</h2>
         </div>
@@ -21,7 +21,7 @@
 
 <script>
 import confetti from "canvas-confetti";
-import { useFitlogStore } from "@/store/fitlog.js"; // Pinia store import
+import { useFitlogStore } from "@/store/fitlog.js";
 
 export default {
   name: "Complete",
@@ -40,6 +40,10 @@ export default {
     weight() {
       const fitlogStore = useFitlogStore();
       return fitlogStore.weight;
+    },
+    totalWorkoutTime() {
+      const fitlogStore = useFitlogStore();
+      return fitlogStore.totalWorkoutTime;
     },
   },
   mounted() {
@@ -66,6 +70,7 @@ export default {
 </script>
 
 <style scoped>
+/* 스타일 유지 */
 main {
   display: flex;
   flex-direction: column;
