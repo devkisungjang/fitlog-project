@@ -67,11 +67,14 @@
     <div class="diary-container">
       <h2>오늘의 운동 일지</h2>
       <v-textarea
-        bg-color="#f5f5f5"
+        placeholder="예시) 대흉근이 웅장해지는 하루였다."
+        clear-icon="mdi-close-circle"
         clearable
-        variant="solo"
-        v-model="diaryEntry"
-        class="textarea"
+        row-height="25"
+        rows="3"
+        variant="outlined"
+        auto-grow
+        shaped
       ></v-textarea>
     </div>
     <div class="weight-container">
