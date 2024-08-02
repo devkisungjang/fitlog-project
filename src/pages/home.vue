@@ -10,8 +10,13 @@
               :style="{ width: '100%' }"
               v-model="selectedDate"
               @input="onDateSelected"
-              :locale="locale"
-            ></v-date-picker>
+            >
+              <!-- 타이틀 커스터마이징을 위한 슬롯 사용 -->
+              <template v-slot:title>
+                <span>날짜를 선택해주세요!</span>
+                <!-- "Select date"를 "날짜 선택"으로 변경 -->
+              </template>
+            </v-date-picker>
           </v-responsive>
         </v-col>
       </v-row>
@@ -23,8 +28,8 @@
         class="recordBtn"
         @click="recordExercise"
         >운동 기록하기!</v-btn
-      ></router-link
-    >
+      >
+    </router-link>
   </div>
 </template>
 
@@ -32,6 +37,7 @@
 import Header from "@/components/header.vue";
 import { useFitlogStore } from "@/store/fitlog.js";
 import { ref } from "vue";
+import { ko } from "vuetify/locale"; // 한국어 로케일 가져오기
 
 export default {
   name: "Home",
@@ -39,7 +45,9 @@ export default {
     Header,
   },
   setup() {
-    const selectedDate = ref(null);
+    // 오늘 날짜를 기본값으로 설정
+    const today = new Date();
+    const selectedDate = ref(today);
     const fitlogStore = useFitlogStore();
 
     const onDateSelected = (date) => {
@@ -54,6 +62,7 @@ export default {
       selectedDate,
       onDateSelected,
       recordExercise,
+      ko, // 한국어 로케일
     };
   },
 };

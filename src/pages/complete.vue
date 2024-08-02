@@ -28,10 +28,13 @@ export default {
   computed: {
     formattedDate() {
       const fitlogStore = useFitlogStore();
-      const selectedDate = fitlogStore.selectedDate;
-      return selectedDate
-        ? new Date(selectedDate).toDateString()
-        : "날짜 선택 안됨";
+      const selectedDate = fitlogStore.selectedDate || new Date();
+      return new Date(selectedDate).toLocaleDateString("ko-KR", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        weekday: "long",
+      });
     },
     totalVolume() {
       const fitlogStore = useFitlogStore();
