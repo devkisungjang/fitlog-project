@@ -4,7 +4,7 @@
       <v-btn>
         <router-link to="/">
           <v-icon>mdi-history</v-icon>
-          <span>운동 기록 보기</span></router-link
+          <span>운동 기록</span></router-link
         >
       </v-btn>
       <v-btn>

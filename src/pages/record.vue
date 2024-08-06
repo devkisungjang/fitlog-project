@@ -88,7 +88,6 @@
         inset
         :step="10"
         variant="solo"
-        bg-color="#0099f7"
         class="weight-input"
       ></v-number-input>
     </div>
@@ -372,6 +371,9 @@ h2 {
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.photo-container h2 {
+  padding-bottom: 10px;
 }
 
 .photo-upload-input {
