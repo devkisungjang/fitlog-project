@@ -1,79 +1,62 @@
-# Vuetify (Default)
+# FITLOG -Project V1.0
+> Vue.js를 활용한 프로그레시브웹앱(PWA) 개발자 양성과정 [14th] 개인 프로젝트
 
-This is the official scaffolding tool for Vuetify, designed to give you a head start in building your new Vuetify application. It sets up a base template with all the necessary configurations and standard directory structure, enabling you to begin development without the hassle of setting up the project from scratch.
+> 개발기간 : 2024.07 ~ 2024.08
+### 💻 github pages
+link : <https://devkisungjang.github.io/fitlog-public/>
 
-## ❗️ Important Links
+## 💁‍♂️ 프로젝트 소개
+### "운동 기록일지" 프로그램
 
-- 📄 [Docs](https://vuetifyjs.com/)
-- 🚨 [Issues](https://issues.vuetifyjs.com/)
-- 🏬 [Store](https://store.vuetifyjs.com/)
-- 🎮 [Playground](https://play.vuetifyjs.com/)
-- 💬 [Discord](https://community.vuetifyjs.com)
+- 이 프로젝트는 Vue.js 프레임워크를 사용하여 Visual Studio Code에서 개발한 웹 사이트입니다.
+- 페이지 간의 이동은 Vue Router를 사용하였고, 상태 관리는 Pinia를 이용하여 중앙 저장소에서 데이터를 관리하고 있습니다.
+### 🛠️ 사용된 기술 스텍 
+<img src="https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=HTML5&logoColor=white"> <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=CSS3&logoColor=white"> <img src="https://img.shields.io/badge/Javascript-F7DF1E?style=flat&logo=Javascript&logoColor=white"> <img src="https://img.shields.io/badge/Vue.js-4FC08D?style=flat&logo=Vue.js&logoColor=white"> <img src="https://img.shields.io/badge/Vuetify-1572B6?style=flat&logo=vuetify&logoColor=white"> <img src="https://img.shields.io/badge/Figma-F24E1E?style=flat&logo=Figma&logoColor=white">
 
-## 💿 Install
-
-Set up your project using your preferred package manager. Use the corresponding command to install the dependencies:
-
-| Package Manager                                                | Command        |
-|---------------------------------------------------------------|----------------|
-| [yarn](https://yarnpkg.com/getting-started)                   | `yarn install` |
-| [npm](https://docs.npmjs.com/cli/v7/commands/npm-install)     | `npm install`  |
-| [pnpm](https://pnpm.io/installation)                          | `pnpm install` |
-| [bun](https://bun.sh/#getting-started)                        | `bun install`  |
-
-After completing the installation, your environment is ready for Vuetify development.
-
-## ✨ Features
-
-- 🖼️ **Optimized Front-End Stack**: Leverage the latest Vue 3 and Vuetify 3 for a modern, reactive UI development experience. [Vue 3](https://v3.vuejs.org/) | [Vuetify 3](https://vuetifyjs.com/en/)
-- 🗃️ **State Management**: Integrated with [Pinia](https://pinia.vuejs.org/), the intuitive, modular state management solution for Vue.
-- 🚦 **Routing and Layouts**: Utilizes Vue Router for SPA navigation and vite-plugin-vue-layouts for organizing Vue file layouts. [Vue Router](https://router.vuejs.org/) | [vite-plugin-vue-layouts](https://github.com/JohnCampionJr/vite-plugin-vue-layouts)
-- ⚡ **Next-Gen Tooling**: Powered by Vite, experience fast cold starts and instant HMR (Hot Module Replacement). [Vite](https://vitejs.dev/)
-- 🧩 **Automated Component Importing**: Streamline your workflow with unplugin-vue-components, automatically importing components as you use them. [unplugin-vue-components](https://github.com/antfu/unplugin-vue-components)
-
-These features are curated to provide a seamless development experience from setup to deployment, ensuring that your Vuetify application is both powerful and maintainable.
-
-## 💡 Usage
-
-This section covers how to start the development server and build your project for production.
-
-### Starting the Development Server
-
-To start the development server with hot-reload, run the following command. The server will be accessible at [http://localhost:3000](http://localhost:3000):
-
-```bash
-yarn dev
+## 🗂️ 프로젝트 구조
 ```
-
-(Repeat for npm, pnpm, and bun with respective commands.)
-
-> Add NODE_OPTIONS='--no-warnings' to suppress the JSON import warnings that happen as part of the Vuetify import mapping. If you are on Node [v21.3.0](https://nodejs.org/en/blog/release/v21.3.0) or higher, you can change this to NODE_OPTIONS='--disable-warning=5401'. If you don't mind the warning, you can remove this from your package.json dev script.
-
-### Building for Production
-
-To build your project for production, use:
-
-```bash
-yarn build
+src/
+  ├── assets/        # 이미지, 아이콘 등 정적 파일
+  │   └── favicon.ico            # 파비콘 파일
+  │
+  ├── components/    # 재사용 가능한 컴포넌트
+  │
+  ├── pages/         # 라우터를 통해 이동되는 페이지들
+  │   ├── home.vue               # 원하는 날짜를 선택할 수 있는 화면 (기본값: 오늘)
+  │   ├── exercise_selection.vue # 부위별로 운동 종목을 선택할 수 있는 화면
+  │   ├── record.vue             # 운동 기록, 세트 관리, 일기, 몸무게 및 사진 기록 화면
+  │   ├── complete.vue           # 기록된 내용을 간략하게 보여주는 화면
+  │   ├── map.vue                # 주변 헬스장을 지도에서 확인할 수 있는 화면 (지오로케이션 및 검색 기능 포함)
+  │
+  ├── plugins/       # 플러그인 관련 설정 파일
+  │   └── vuetify.js              # Vuetify 설정 파일
+  │
+  ├── store/         # Pinia를 사용한 상태 관리
+  │
+  ├── router/        # Vue Router 설정
+  │
+  └── App.vue        # 메인 앱 컴포넌트
 ```
+## 💻 프로젝트 설치 및 실행
+### 요구사항
+- Node.js 설치
+- npm 설치
 
-(Repeat for npm, pnpm, and bun with respective commands.)
+### 설치 및 실행
+1. 리포지토리 클론
 
-Once the build process is completed, your application will be ready for deployment in a production environment.
+```cd your-project```
 
-## 💪 Support Vuetify Development
+```git clone https://github.com/devkisungjang/fitlog-project.git```
 
-This project is built with [Vuetify](https://vuetifyjs.com/en/), a UI Library with a comprehensive collection of Vue components. Vuetify is an MIT licensed Open Source project that has been made possible due to the generous contributions by our [sponsors and backers](https://vuetifyjs.com/introduction/sponsors-and-backers/). If you are interested in supporting this project, please consider:
 
-- [Requesting Enterprise Support](https://support.vuetifyjs.com/)
-- [Sponsoring John on Github](https://github.com/users/johnleider/sponsorship)
-- [Sponsoring Kael on Github](https://github.com/users/kaelwd/sponsorship)
-- [Supporting the team on Open Collective](https://opencollective.com/vuetify)
-- [Becoming a sponsor on Patreon](https://www.patreon.com/vuetify)
-- [Becoming a subscriber on Tidelift](https://tidelift.com/subscription/npm/vuetify)
-- [Making a one-time donation with Paypal](https://paypal.me/vuetify)
+2. 종속성 설치
 
-## 📑 License
-[MIT](http://opensource.org/licenses/MIT)
+```npm install```
 
-Copyright (c) 2016-present Vuetify, LLC
+3. 개발 서버 실행 및 빌드
+
+```npm run dev```
+
+```npm run build```
+
