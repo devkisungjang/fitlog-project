@@ -1,14 +1,14 @@
-# FITLOG -Project V1.0
+# FITLOG -Project
 > 이 프로젝트는 Vue.js를 활용한 프로그레시브웹앱(PWA) 개발자 양성과정 [14th]에서 개발한 개인 프로젝트입니다.
 
 > 개발기간 : 2024.07 ~ 2024.08
-### 💻 github pages
-link : <https://devkisungjang.github.io/fitlog-public/>
+
+> github pages : <https://devkisungjang.github.io/fitlog-public/>
+
 
 ## 💁‍♂️ 프로젝트 소개
-### "운동 기록일지" 프로그램
+### "운동 기록일지" 서비스를 제공하는 프로그램
 
-- 이 프로젝트는 Vue.js 프레임워크를 사용하여 Visual Studio Code에서 개발한 웹 사이트입니다.
 - 페이지 간의 이동은 Vue Router를 사용하였고, 상태 관리는 Pinia를 이용하여 중앙 저장소에서 데이터를 관리하고 있습니다.
 ### 🛠️ 사용된 기술 스텍 
 <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=HTML5&logoColor=white"> <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=CSS3&logoColor=white"> <img src="https://img.shields.io/badge/Javascript-F7DF1E?style=flat&logo=Javascript&logoColor=white"> <img src="https://img.shields.io/badge/Vue.js-4FC08D?style=flat&logo=Vue.js&logoColor=white"> <img src="https://img.shields.io/badge/Vuetify-1572B6?style=flat&logo=vuetify&logoColor=white"> <img src="https://img.shields.io/badge/Figma-F24E1E?style=flat&logo=Figma&logoColor=white">
